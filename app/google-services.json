@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "67371286113",
+    "project_id": "timviec247-2d872",
+    "storage_bucket": "timviec247-2d872.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67371286113:android:7607f737d9db04b7033420",
+        "android_client_info": {
+          "package_name": "com.utehy.timviec247"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk9-W1yqSYOSDfTkE2fcUl0ED_xcORBig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
