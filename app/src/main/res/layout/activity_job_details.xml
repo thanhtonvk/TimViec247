@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FAFAFA"
-    android:orientation="vertical"
     tools:context=".activities.JobDetailsActivity">
 
     <ScrollView
+        android:layout_above="@+id/bottom"
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -53,6 +54,13 @@
                         android:text="Công ty cổ phần EWAY Việt Nam"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Thông tin công ty"
+                        android:textColor="@color/primary"
+                        android:textSize="16sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -101,7 +109,7 @@
                             android:gravity="center"
                             android:text="20-25 triệu"
                             android:textColor="@color/primary"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                     </RelativeLayout>
@@ -137,7 +145,7 @@
                             android:gravity="center"
                             android:text="20-25 triệu"
                             android:textColor="@color/primary"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                     </RelativeLayout>
@@ -173,7 +181,7 @@
                             android:gravity="center"
                             android:text="20-25 triệu"
                             android:textColor="@color/primary"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                     </RelativeLayout>
@@ -426,9 +434,100 @@
                         android:textColor="@color/black" />
                 </LinearLayout>
             </LinearLayout>
-
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mô tả công việc"/>
+            <TextView
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tham gia nghiên cứu"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Yêu cầu ứng viên"/>
+            <TextView
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tham gia nghiên cứu"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quyền lợi"/>
+            <TextView
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tham gia nghiên cứu"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Địa điểm làm việc"/>
+            <TextView
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tham gia nghiên cứu"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thời gian làm việc"/>
+            <TextView
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tham gia nghiên cứu"/>
         </LinearLayout>
     </ScrollView>
 
+    <LinearLayout
+        android:gravity="center"
+        android:padding="3dp"
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:src="@drawable/bookmark" />
 
-</LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/border_button"
+            android:backgroundTint="@color/primary"
+            android:text="Ứng tuyển ngay"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+</RelativeLayout>
