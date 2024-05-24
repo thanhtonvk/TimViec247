@@ -91,7 +91,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/btnSignup"
+                android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
