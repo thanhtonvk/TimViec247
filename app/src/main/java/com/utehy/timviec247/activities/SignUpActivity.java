@@ -9,6 +9,7 @@ import android.os.TokenWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class SignUpActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference reference;
+    RadioButton rbCaNhan, rbDoanhNghiep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +81,13 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                                Account account = new Account(user.getUid(), user.getEmail(), email);
+                                Account account;
+                                if (rbCaNhan.isActivated()) {
+                                    account = new Account(user.getUid(), user.getEmail(), email, true);
+                                } else {
+                                    account = new Account(user.getUid(), user.getEmail(), email, false);
+                                }
+
                                 reference.child(account.getId()).setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -111,6 +119,8 @@ public class SignUpActivity extends AppCompatActivity {
         edtRePassword = findViewById(R.id.edtRePassword);
         btnSignup = findViewById(R.id.btnSignup);
         txtLogin = findViewById(R.id.txtLogin);
+        rbCaNhan = findViewById(R.id.rbCaNhan);
+        rbDoanhNghiep = findViewById(R.id.rbDoanhNghiep);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         reference = firebaseDatabase.getReference("Account");

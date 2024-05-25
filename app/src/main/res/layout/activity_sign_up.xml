@@ -61,6 +61,7 @@
                 android:textSize="15sp" />
 
             <EditText
+                android:paddingRight="20dp"
                 android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -78,6 +79,7 @@
                 android:textSize="15sp" />
 
             <EditText
+                android:paddingRight="20dp"
                 android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -95,6 +97,7 @@
                 android:textSize="15sp" />
 
             <EditText
+                android:paddingRight="20dp"
                 android:id="@+id/edtRePassword"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -110,6 +113,31 @@
                 android:textColor="@color/black"
                 android:textColorHint="#B7B7B7"
                 android:textSize="15sp" />
+            <RadioGroup
+                android:gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_margin="30dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:id="@+id/rbCaNhan"
+                    android:layout_margin="5dp"
+                    android:checked="true"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cá nhân"/>
+                <RadioButton
+                    android:id="@+id/rbDoanhNghiep"
+                    android:layout_margin="5dp"
+                    android:checked="false"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Doanh nghiệp"/>
+            </RadioGroup>
 
 
             <Button

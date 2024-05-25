@@ -2,14 +2,24 @@ package com.utehy.timviec247.models;
 
 public class Account {
     private String id,email,fullName;
+    private boolean type;
 
     public Account() {
     }
 
-    public Account(String id, String email, String fullName) {
+    public boolean isType() {
+        return type;
+    }
+
+    public void setType(boolean type) {
+        this.type = type;
+    }
+
+    public Account(String id, String email, String fullName, boolean type) {
         this.id = id;
         this.email = email;
         this.fullName = fullName;
+        this.type = type;
     }
 
     public String getId() {
