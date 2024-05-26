@@ -64,13 +64,13 @@ public class SignUpActivity extends AppCompatActivity {
         String password = edtPassword.getText().toString().trim();
         String rePassword = edtRePassword.getText().toString().trim();
         if (fullName.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Vui lòng nhập họ tên", Toast.LENGTH_LONG).show();
+            Toast.makeText(SignUpActivity.this, "Vui lòng nhập họ tên", Toast.LENGTH_LONG).show();
         } else if (!email.contains("@")) {
-            Toast.makeText(getApplicationContext(), "Email không hợp lệ", Toast.LENGTH_LONG).show();
+            Toast.makeText(SignUpActivity.this, "Email không hợp lệ", Toast.LENGTH_LONG).show();
         } else if (password.isEmpty() || rePassword.isEmpty() || password.compareToIgnoreCase(rePassword) == 1) {
-            Toast.makeText(getApplicationContext(), "Mật khẩu không hợp lệ", Toast.LENGTH_LONG).show();
+            Toast.makeText(SignUpActivity.this, "Mật khẩu không hợp lệ", Toast.LENGTH_LONG).show();
         } else {
-            ProgressDialog dialog = new ProgressDialog(getApplicationContext());
+            ProgressDialog dialog = new ProgressDialog(SignUpActivity.this);
             dialog.setTitle("Loading");
             dialog.show();
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -92,21 +92,21 @@ public class SignUpActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         dialog.dismiss();
-                                        Toast.makeText(getApplicationContext(), "Đăng ký tài khoản thành công", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(SignUpActivity.this, "Đăng ký tài khoản thành công", Toast.LENGTH_LONG).show();
                                     }
                                 });
                             }
                         });
                     } else {
                         dialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "Tài khoản đã tồn tại", Toast.LENGTH_LONG).show();
+                        Toast.makeText(SignUpActivity.this, "Tài khoản đã tồn tại", Toast.LENGTH_LONG).show();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     dialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "Lỗi kết nối", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUpActivity.this, "Lỗi kết nối", Toast.LENGTH_LONG).show();
                 }
             });
         }

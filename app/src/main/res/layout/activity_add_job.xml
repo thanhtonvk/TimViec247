@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".activities.business.AddJobActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Thông tin công việc"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vị trí công việc"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtViTri"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập vị trí công việc"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mức lương (triệu)"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edtMin"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_editext"
+                    android:backgroundTint="#F6F4F5"
+                    android:hint="Min"
+                    android:inputType="number"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#B7B7B7"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edtMax"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_editext"
+                    android:backgroundTint="#F6F4F5"
+                    android:hint="Max"
+                    android:inputType="number"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#B7B7B7"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Địa điểm làm việc"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtDiaChi"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập địa điểm"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kinh nghiệm (năm)"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtKinhNghiem"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập kinh nghiệm"
+                android:inputType="number"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hình thức làm việc"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtHinhThuc"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập hình thức"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Số lượng tuyển"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtSoLuong"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập số lượng"
+                android:inputType="number"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Giới tính"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtSoLuong"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập giới tính"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cấp bậc"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtCapBac"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập cấp bậc"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thời gian ứng tuyển (ngày)"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtThoiGian"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập thời gian ứng tuyển"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

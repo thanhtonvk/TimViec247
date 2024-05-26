@@ -17,7 +17,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.utehy.timviec247.R;
+import com.utehy.timviec247.activities.business.BusinessActivity;
+import com.utehy.timviec247.models.Account;
 import com.utehy.timviec247.utils.Common;
 
 public class LoginActivity extends AppCompatActivity {
@@ -26,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     TextView txtForgot, txtSignup;
     Button btnLogin;
     FirebaseAuth firebaseAuth;
+    FirebaseDatabase database;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Mật khẩu không dược bỏ trống", Toast.LENGTH_LONG).show();
         }
         if (!email.isEmpty() && !password.isEmpty()) {
-            ProgressDialog dialog = new ProgressDialog(getApplicationContext());
+            ProgressDialog dialog = new ProgressDialog(LoginActivity.this);
             dialog.setTitle("Loading");
             dialog.show();
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -69,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                     dialog.dismiss();
                     if (task.isSuccessful()) {
                         Common.user = firebaseAuth.getCurrentUser();
-                        startActivity(new Intent(getApplicationContext(), ParentActivity.class));
+                        getAccount(Common.user.getUid());
                     } else {
                         Toast.makeText(getApplicationContext(), "Tài khoản hoặc mật khẩu không chính xác", Toast.LENGTH_LONG).show();
                     }
@@ -87,6 +96,28 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    private void getAccount(String id) {
+        reference.child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Account account = snapshot.getValue(Account.class);
+                Common.account = account;
+
+                if (account.isType()) {
+                    startActivity(new Intent(getApplicationContext(), ParentActivity.class));
+                } else {
+                    startActivity(new Intent(getApplicationContext(), BusinessActivity.class));
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void init() {
         edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.edtPassword);
@@ -94,6 +125,8 @@ public class LoginActivity extends AppCompatActivity {
         txtSignup = findViewById(R.id.txtSignup);
         btnLogin = findViewById(R.id.btnLogin);
         firebaseAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("Account");
     }
 
 }
