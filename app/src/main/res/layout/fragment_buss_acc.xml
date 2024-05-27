@@ -1,14 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".fragments.business.BussAccFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Thông tin công ty"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
 
-</FrameLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên công ty"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtTenCongTy"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập tên công ty"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SĐT công ty"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtSoDienThoai"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập SDT công ty"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email công ty"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập email công ty"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ công ty"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtDiaChiCongTy"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập website công ty"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Website công ty"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtWebsiteCongTy"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập địa chỉ công ty"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Logo công ty"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtLogo"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập link logo"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Giới thiệu công ty"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtGioiThieu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập giới thiệu công ty "
+                android:inputType="textMultiLine"
+                android:maxHeight="200dp"
+                android:minHeight="100dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/btnCapNhat"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border_button"
+                android:backgroundTint="@color/primary"
+                android:text="Cập nhật"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

@@ -65,7 +65,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/edtMin"
+                    android:id="@+id/edtLuongMin"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="5dp"
@@ -76,12 +76,13 @@
                     android:inputType="number"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textColorHint="#B7B7B7"
                     android:textSize="15sp" />
 
                 <EditText
-                    android:id="@+id/edtMax"
+                    android:id="@+id/edtLuongMax"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="5dp"
@@ -92,6 +93,7 @@
                     android:inputType="number"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textColorHint="#B7B7B7"
                     android:textSize="15sp" />
@@ -136,6 +138,7 @@
                 android:inputType="number"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
+                android:text="0"
                 android:textColor="@color/black"
                 android:textColorHint="#B7B7B7"
                 android:textSize="15sp" />
@@ -179,6 +182,7 @@
                 android:inputType="number"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
+                android:text="0"
                 android:textColor="@color/black"
                 android:textColorHint="#B7B7B7"
                 android:textSize="15sp" />
@@ -191,7 +195,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/edtSoLuong"
+                android:id="@+id/edtGioiTinh"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="5dp"
@@ -240,11 +244,119 @@
                 android:background="@drawable/border_editext"
                 android:backgroundTint="#F6F4F5"
                 android:hint="Nhập thời gian ứng tuyển"
+                android:inputType="number"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mô tả công việc "
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtMoTa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập mô tả công việc "
+                android:inputType="textMultiLine"
+                android:maxHeight="200dp"
+                android:minHeight="100dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:textColor="@color/black"
                 android:textColorHint="#B7B7B7"
                 android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Yêu cầu ứng viên"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtYeuCau"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập yêu cầu ứng viên "
+                android:inputType="textMultiLine"
+                android:maxHeight="200dp"
+                android:minHeight="100dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quyền lợi"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtQuyenLoi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập quyền lợi "
+                android:inputType="textMultiLine"
+                android:maxHeight="200dp"
+                android:minHeight="100dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thời gian làm việc"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtThoiGianLamViec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập thời gian làm việc "
+                android:inputType="textMultiLine"
+                android:maxHeight="100dp"
+                android:minHeight="40dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border_button"
+                android:backgroundTint="@color/primary"
+                android:text="Cập nhật"
+                android:textColor="@color/white" />
         </LinearLayout>
     </ScrollView>
 
