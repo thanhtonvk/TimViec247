@@ -37,7 +37,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
         this.context = context;
         this.JobList = JobList;
         database = FirebaseDatabase.getInstance();
-        reference = database.getReference("CongTy");
+        reference = database.getReference();
     }
 
     @NonNull
@@ -50,8 +50,9 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Job Job = JobList.get(position);
+        Log.e("TAG", "onBindViewHolder: "+Job.getIdAccount() );
         holder.tvViTriCongViec.setText(Job.getViTri());
-        reference.child(Job.getIdAccount()).addValueEventListener(new ValueEventListener() {
+        reference.child("CongTy").child(Job.getIdAccount()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Company congTy = snapshot.getValue(Company.class);

@@ -3,7 +3,9 @@ package com.utehy.timviec247.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -26,6 +28,7 @@ public class JobDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_job_details);
         init();
         loadData();
+        onClick();
     }
 
     private void init() {
@@ -49,6 +52,15 @@ public class JobDetailsActivity extends AppCompatActivity {
         tvThoiGianLamViec = findViewById(R.id.tvThoiGianLamViec);
         btnUngTuyen = findViewById(R.id.btnUngTuyen);
         btnLuu = findViewById(R.id.btnLuu);
+    }
+
+    private void onClick() {
+        tvThongTinCongTy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), CompanyDetailsActivity.class));
+            }
+        });
     }
 
     @SuppressLint("SetTextI18n")

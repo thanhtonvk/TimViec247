@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.utehy.timviec247.R;
 import com.utehy.timviec247.adapters.CompanyAdapter;
+import com.utehy.timviec247.adapters.JobAdapter;
 import com.utehy.timviec247.models.Company;
+import com.utehy.timviec247.models.Job;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +40,16 @@ public class HomeFragment extends Fragment {
     FirebaseDatabase database;
     DatabaseReference reference;
 
+    List<Job> viecLamTotNhatList = new ArrayList<>();
+    JobAdapter viecLamTotNhatAdapter;
+    RecyclerView rvViecLamTotNhat;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         init();
         loadCongTy();
+        loadViecLamTotNhat();
     }
 
     @Override
@@ -58,6 +66,48 @@ public class HomeFragment extends Fragment {
         rvCongTy.setLayoutManager(new GridLayoutManager(getContext(), 2));
         companyAdapter = new CompanyAdapter(getContext(), companyList);
         rvCongTy.setAdapter(companyAdapter);
+
+        rvViecLamTotNhat = getActivity().findViewById(R.id.rvViecLamTotNhat);
+        viecLamTotNhatAdapter = new JobAdapter(getContext(), viecLamTotNhatList);
+        rvViecLamTotNhat.setAdapter(viecLamTotNhatAdapter);
+    }
+
+    private void loadViecLamTotNhat() {
+        reference.child("Jobs").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                viecLamTotNhatList.clear();
+                for (DataSnapshot key : snapshot.getChildren()
+                ) {
+                    String subChild = key.getKey();
+                    Log.e("TAG", "onDataChange: "+subChild );
+                    reference.child("Jobs").child(subChild).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            //
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()
+                            ) {
+                                Job job = dataSnapshot.getValue(Job.class);
+                                viecLamTotNhatList.add(job);
+                                viecLamTotNhatAdapter.notifyDataSetChanged();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void loadCongTy() {
