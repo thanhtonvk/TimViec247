@@ -4,6 +4,7 @@ import android.widget.EditText;
 
 public class Job {
     private String id;
+    private String idAccount;
     private String viTri;
     private int luongMin, luongMax;
     private String diaChi;
@@ -25,6 +26,14 @@ public class Job {
     }
 
     public Job() {
+    }
+
+    public String getIdAccount() {
+        return idAccount;
+    }
+
+    public void setIdAccount(String idAccount) {
+        this.idAccount = idAccount;
     }
 
     public String getViTri() {

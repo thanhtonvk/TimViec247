@@ -8,10 +8,10 @@
     tools:context=".activities.JobDetailsActivity">
 
     <ScrollView
-        android:layout_above="@+id/bottom"
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,13 +32,15 @@
                     android:padding="10dp">
 
                     <ImageView
+                        android:id="@+id/imgLogo"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_gravity="center_horizontal"
-                        android:scaleType="centerCrop"
+                        android:scaleType="centerInside"
                         android:src="@drawable/eway" />
 
                     <TextView
+                        android:id="@+id/tvViTriCongViec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -48,13 +50,16 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvTenCongTy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Công ty cổ phần EWAY Việt Nam"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
+
                     <TextView
+                        android:id="@+id/tvThongTinCongTy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -101,7 +106,7 @@
                             android:textColor="@color/text_hint" />
 
                         <TextView
-                            android:id="@+id/txtMucLuong"
+                            android:id="@+id/tvMucLuong"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/txtLuong"
@@ -137,7 +142,7 @@
                             android:textColor="@color/text_hint" />
 
                         <TextView
-                            android:id="@+id/txtDiaDiem"
+                            android:id="@+id/tvDiaDiem"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/txtLoc"
@@ -169,11 +174,11 @@
                             android:layout_below="@id/imgStar"
                             android:layout_centerHorizontal="true"
                             android:gravity="center"
-                            android:text="Mức lương"
+                            android:text="Kinh nghiệm"
                             android:textColor="@color/text_hint" />
 
                         <TextView
-                            android:id="@+id/txtKinhNghiem"
+                            android:id="@+id/tvKinhNghiem"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/txtEx"
@@ -228,6 +233,7 @@
                         android:textColor="@color/text_hint" />
 
                     <TextView
+                        android:id="@+id/tvKinhNghiem2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="2 năm"
@@ -268,6 +274,7 @@
                         android:textColor="@color/text_hint" />
 
                     <TextView
+                        android:id="@+id/tvHinhThuc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Toàn thời gian"
@@ -308,6 +315,7 @@
                         android:textColor="@color/text_hint" />
 
                     <TextView
+                        android:id="@+id/tvSoLuong"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="3 người"
@@ -348,6 +356,7 @@
                         android:textColor="@color/text_hint" />
 
                     <TextView
+                        android:id="@+id/tvGioiTinh"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Không yêu cầu"
@@ -388,6 +397,7 @@
                         android:textColor="@color/text_hint" />
 
                     <TextView
+                        android:id="@+id/tvCapBac"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Nhân viên"
@@ -424,104 +434,123 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Hạn nộp hồ sơ"
+                        android:text="Thời gian ứng tuyển"
                         android:textColor="@color/text_hint" />
 
                     <TextView
+                        android:id="@+id/tvThoiGian"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="30/06/2024"
                         android:textColor="@color/black" />
                 </LinearLayout>
             </LinearLayout>
+
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:text="Mô tả công việc"
+                android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMoTa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mô tả công việc"/>
-            <TextView
                 android:layout_marginTop="5dp"
-                android:textColor="@color/black"
+                android:text="Tham gia nghiên cứu"
+                android:textColor="@color/black" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tham gia nghiên cứu"/>
-            <TextView
                 android:layout_marginTop="10dp"
+                android:text="Yêu cầu ứng viên"
+                android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvYeuCau"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Yêu cầu ứng viên"/>
-            <TextView
                 android:layout_marginTop="5dp"
-                android:textColor="@color/black"
+                android:text="Tham gia nghiên cứu"
+                android:textColor="@color/black" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tham gia nghiên cứu"/>
-            <TextView
                 android:layout_marginTop="10dp"
+                android:text="Quyền lợi"
+                android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvQuyenLoi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Quyền lợi"/>
-            <TextView
                 android:layout_marginTop="5dp"
-                android:textColor="@color/black"
+                android:text="Tham gia nghiên cứu"
+                android:textColor="@color/black" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tham gia nghiên cứu"/>
-            <TextView
                 android:layout_marginTop="10dp"
+                android:text="Địa điểm làm việc"
+                android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDiaDiemLamViec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Địa điểm làm việc"/>
-            <TextView
                 android:layout_marginTop="5dp"
-                android:textColor="@color/black"
+                android:text="Tham gia nghiên cứu"
+                android:textColor="@color/black" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tham gia nghiên cứu"/>
-            <TextView
                 android:layout_marginTop="10dp"
+                android:text="Thời gian làm việc"
+                android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Thời gian làm việc"/>
+                android:textStyle="bold" />
+
             <TextView
-                android:layout_marginTop="5dp"
-                android:textColor="@color/black"
+                android:id="@+id/tvThoiGianLamViec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tham gia nghiên cứu"/>
+                android:layout_marginTop="5dp"
+                android:text="Tham gia nghiên cứu"
+                android:textColor="@color/black" />
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
-        android:gravity="center"
-        android:padding="3dp"
         android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="3dp">
+
         <ImageButton
+            android:id="@+id/btnLuu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00000000"
             android:src="@drawable/bookmark" />
 
         <Button
+            android:id="@+id/btnUngTuyen"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@drawable/border_button"

@@ -45,7 +45,7 @@ public class BussAccFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_buss_acc, container, false);
     }
 
-    EditText edtTenCongTy, edtDiaChi, edtSoDienThoai, edtEmail, edtWebsite, edtLogo, edtGioiThieu;
+    EditText edtTenCongTy, edtDiaChi, edtSoDienThoai, edtEmail, edtWebsite, edtLogo, edtGioiThieu, edtLinhVuc;
     Button btnCapNhat;
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -59,6 +59,7 @@ public class BussAccFragment extends Fragment {
         edtLogo = getView().findViewById(R.id.edtLogo);
         edtGioiThieu = getView().findViewById(R.id.edtGioiThieu);
         btnCapNhat = getView().findViewById(R.id.btnCapNhat);
+        edtLinhVuc = getView().findViewById(R.id.edtLinhVuc);
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("CongTy");
     }
@@ -82,6 +83,7 @@ public class BussAccFragment extends Fragment {
                     edtWebsite.setText(company.getWebsite());
                     edtLogo.setText(company.getLogo());
                     edtGioiThieu.setText(company.getGioiThieu());
+                    edtLinhVuc.setText(company.getLinhVuc());
                 }
             }
 
@@ -93,13 +95,14 @@ public class BussAccFragment extends Fragment {
     }
 
     private void capNhat() {
-        boolean isValid = EditextValidator.validateAllEditTexts(edtTenCongTy, edtDiaChi, edtSoDienThoai, edtEmail, edtWebsite, edtLogo, edtGioiThieu);
+        boolean isValid = EditextValidator.validateAllEditTexts(edtTenCongTy, edtDiaChi, edtSoDienThoai, edtEmail, edtWebsite, edtLogo, edtGioiThieu, edtLinhVuc);
         if (isValid) {
             ProgressDialog dialog = new ProgressDialog(getContext());
             dialog.setMessage("Đang cập nhật");
             dialog.show();
-            String[] texts = EditextValidator.getTextFromEditTexts(edtTenCongTy, edtDiaChi, edtSoDienThoai, edtEmail, edtWebsite, edtLogo, edtGioiThieu);
+            String[] texts = EditextValidator.getTextFromEditTexts(edtTenCongTy, edtDiaChi, edtSoDienThoai, edtEmail, edtWebsite, edtLogo, edtGioiThieu, edtLinhVuc);
             Company company = new Company();
+            company.setId(Common.account.getId());
             company.setTenCongTy(texts[0]);
             company.setDiaChi(texts[1]);
             company.setSdt(texts[2]);
@@ -107,6 +110,7 @@ public class BussAccFragment extends Fragment {
             company.setWebsite(texts[4]);
             company.setLogo(texts[5]);
             company.setGioiThieu(texts[6]);
+            company.setLinhVuc(texts[7]);
             reference.child(Common.account.getId()).setValue(company).addOnCompleteListener(task -> {
                 dialog.dismiss();
                 if (task.isSuccessful()) {

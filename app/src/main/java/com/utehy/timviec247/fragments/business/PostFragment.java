@@ -7,15 +7,28 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.utehy.timviec247.R;
 import com.utehy.timviec247.activities.business.AddJobActivity;
+import com.utehy.timviec247.adapters.business.PostAdapter;
+import com.utehy.timviec247.models.Job;
+import com.utehy.timviec247.utils.Common;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PostFragment extends Fragment {
 
@@ -28,6 +41,7 @@ public class PostFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         init();
         onClick();
+        loadData();
     }
 
     @Override
@@ -38,9 +52,38 @@ public class PostFragment extends Fragment {
     }
 
     FloatingActionButton btnAdd;
+    RecyclerView recyclerView;
+    PostAdapter postAdapter;
+    List<Job> jobList = new ArrayList<>();
+    FirebaseDatabase database;
+    DatabaseReference reference;
 
     private void init() {
         btnAdd = getView().findViewById(R.id.btnAdd);
+        recyclerView = getView().findViewById(R.id.rvPost);
+        postAdapter = new PostAdapter(getContext(), jobList);
+        recyclerView.setAdapter(postAdapter);
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("Jobs");
+    }
+
+    private void loadData() {
+        reference.child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                jobList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Job job = dataSnapshot.getValue(Job.class);
+                    jobList.add(job);
+                    postAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void onClick() {
@@ -48,6 +91,7 @@ public class PostFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
+                Common.job = null;
                 startActivity(new Intent(getContext(), AddJobActivity.class));
             }
         });

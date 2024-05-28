@@ -1,7 +1,7 @@
 package com.utehy.timviec247.models;
 
 public class Company {
-    private String id, tenCongTy, sdt, diaChi, website, logo, gioiThieu, email;
+    private String id, tenCongTy, sdt, diaChi, website, logo, gioiThieu, email,linhVuc;
 
     public Company() {
     }
@@ -23,6 +23,14 @@ public class Company {
         this.logo = logo;
         this.gioiThieu = gioiThieu;
         this.email = email;
+    }
+
+    public String getLinhVuc() {
+        return linhVuc;
+    }
+
+    public void setLinhVuc(String linhVuc) {
+        this.linhVuc = linhVuc;
     }
 
     public String getId() {

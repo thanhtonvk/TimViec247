@@ -32,9 +32,32 @@ public class AddJobActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_job);
         init();
         onClick();
+        if (Common.job != null) {
+            loadData();
+        }
+
+    }
+
+    private void loadData() {
+        edtViTri.setText(Common.job.getViTri());
+        edtLuongMin.setText(String.valueOf(Common.job.getLuongMin()));
+        edtLuongMax.setText(String.valueOf(Common.job.getLuongMax()));
+        edtDiaChi.setText(Common.job.getDiaChi());
+        edtKinhNghiem.setText(String.valueOf(Common.job.getKinhNghiem()));
+        edtHinhThuc.setText(Common.job.getHinhThuc());
+        edtSoLuong.setText(String.valueOf(Common.job.getSoLuong()));
+        edtGioiTinh.setText(Common.job.getGioiTinh());
+        edtCapBac.setText(Common.job.getCapBac());
+        edtThoiGian.setText(String.valueOf(Common.job.getThoiGian()));
+        edtMoTa.setText(Common.job.getMoTa());
+        edtYeuCau.setText(Common.job.getYeuCau());
+        edtQuyenLoi.setText(Common.job.getQuyenLoi());
+        edtThoiGianLamViec.setText(Common.job.getThoiGianLamViec());
+
     }
 
     private void onClick() {
+
         btnAdd.setOnClickListener(view -> {
                     boolean isValid = EditextValidator.validateAllEditTexts(edtViTri, edtLuongMin, edtLuongMax, edtDiaChi, edtKinhNghiem, edtHinhThuc, edtSoLuong, edtGioiTinh, edtCapBac, edtThoiGian, edtMoTa, edtYeuCau, edtQuyenLoi, edtThoiGianLamViec);
                     if (isValid) {
@@ -43,7 +66,12 @@ public class AddJobActivity extends AppCompatActivity {
                         dialog.show();
                         String[] texts = EditextValidator.getTextFromEditTexts(edtViTri, edtLuongMin, edtLuongMax, edtDiaChi, edtKinhNghiem, edtHinhThuc, edtSoLuong, edtGioiTinh, edtCapBac, edtThoiGian, edtMoTa, edtYeuCau, edtQuyenLoi, edtThoiGianLamViec);
                         Job job = new Job();
-                        job.setId(String.valueOf(new Random().nextInt()));
+                        job.setIdAccount(Common.account.getId());
+                        if (Common.job != null) {
+                            job.setId(Common.job.getId());
+                        } else {
+                            job.setId(String.valueOf(new Random().nextInt()));
+                        }
                         job.setViTri(texts[0]);
                         job.setLuongMin(Integer.parseInt(texts[1]));
                         job.setLuongMax(Integer.parseInt(texts[2]));
@@ -61,14 +89,15 @@ public class AddJobActivity extends AppCompatActivity {
                         reference.child(Common.user.getUid()).child(job.getId()).setValue(job).addOnCompleteListener(task -> {
                             dialog.dismiss();
                             if (task.isSuccessful()) {
-                                Toast.makeText(AddJobActivity.this, "Thêm công việc thành công", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddJobActivity.this, "Cập nhật công việc thành công", Toast.LENGTH_SHORT).show();
+                                Common.job = null;
                                 finish();
                             } else {
-                                Toast.makeText(AddJobActivity.this, "Thêm công việc thất bại", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddJobActivity.this, "Cập nhật  công việc thất bại", Toast.LENGTH_SHORT).show();
                             }
                         }).addOnFailureListener(e -> {
                             dialog.dismiss();
-                            Toast.makeText(AddJobActivity.this, "Thêm công việc thất bại", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddJobActivity.this, "Cập nhật  công việc thất bại", Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         });
                     }

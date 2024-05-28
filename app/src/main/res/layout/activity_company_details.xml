@@ -32,13 +32,15 @@
                     android:padding="10dp">
 
                     <ImageView
+                        android:id="@+id/imgLogo"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_gravity="center_horizontal"
-                        android:scaleType="centerCrop"
+                        android:scaleType="centerInside"
                         android:src="@drawable/eway" />
 
                     <TextView
+                        android:id="@+id/tvTenCongTy1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -51,6 +53,7 @@
 
 
             <TextView
+                android:id="@+id/tvTenCongTy2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Công ty cổ phần EWAY Việt Nam"
@@ -89,6 +92,7 @@
                         android:textColor="@color/text_hint" />
 
                     <TextView
+                        android:id="@+id/tvDiaChi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="2 năm"
@@ -129,8 +133,10 @@
                         android:textColor="@color/text_hint" />
 
                     <TextView
+                        android:id="@+id/tvWebsite"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:autoLink="web"
                         android:text="2 năm"
                         android:textColor="@color/black" />
 
@@ -149,6 +155,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvGioiThieu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -164,139 +171,12 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <androidx.cardview.widget.CardView
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvJob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="@color/white"
-                app:cardCornerRadius="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/eway" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Junior AI Engineer"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Công ty cổ phần EWAY JSC"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                app:cardBackgroundColor="#FAFAFA"
-                                app:cardCornerRadius="5dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="5dp"
-                                    android:text="Ha Noi"
-                                    android:textColor="@color/black" />
-
-                            </androidx.cardview.widget.CardView>
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                app:cardBackgroundColor="#FAFAFA"
-                                app:cardCornerRadius="5dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="5dp"
-                                    android:text="2 nam"
-                                    android:textColor="@color/black" />
-
-                            </androidx.cardview.widget.CardView>
-                        </LinearLayout>
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            app:cardBackgroundColor="#BBDEFB"
-                            app:cardCornerRadius="5dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:text="20 - 25 trieu"
-                                android:textColor="@color/primary"
-                                android:textStyle="bold" />
-
-
-                        </androidx.cardview.widget.CardView>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:text="Con 30 ngay de ung tuyen"
-                            android:textColor="@color/text_hint"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="3dp">
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:src="@drawable/bookmark" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/border_button"
-            android:backgroundTint="@color/primary"
-            android:text="Ứng tuyển ngay"
-            android:textColor="@color/white" />
-
-    </LinearLayout>
 </RelativeLayout>
