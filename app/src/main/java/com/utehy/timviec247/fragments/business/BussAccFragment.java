@@ -1,6 +1,7 @@
 package com.utehy.timviec247.fragments.business;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.utehy.timviec247.R;
+import com.utehy.timviec247.activities.LoginActivity;
 import com.utehy.timviec247.models.Company;
 import com.utehy.timviec247.utils.Common;
 import com.utehy.timviec247.utils.EditextValidator;
@@ -46,7 +48,7 @@ public class BussAccFragment extends Fragment {
     }
 
     EditText edtTenCongTy, edtDiaChi, edtSoDienThoai, edtEmail, edtWebsite, edtLogo, edtGioiThieu, edtLinhVuc;
-    Button btnCapNhat;
+    Button btnCapNhat, btnDangXuat;
     FirebaseDatabase database;
     DatabaseReference reference;
 
@@ -62,11 +64,19 @@ public class BussAccFragment extends Fragment {
         edtLinhVuc = getView().findViewById(R.id.edtLinhVuc);
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("CongTy");
+        btnDangXuat = getView().findViewById(R.id.btnDangXuat);
     }
 
     private void onClick() {
         btnCapNhat.setOnClickListener(view -> {
             capNhat();
+        });
+        btnDangXuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+                startActivity(new Intent(getContext(), LoginActivity.class));
+            }
         });
     }
 

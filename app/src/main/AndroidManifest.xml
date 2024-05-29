@@ -11,11 +11,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.business.XemCVActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ViecLamDaLuuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ViecLamDaUngTuyenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.CapNhatThongTinActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.business.AddJobActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".activities.business.BusinessActivity"
             android:exported="true" />

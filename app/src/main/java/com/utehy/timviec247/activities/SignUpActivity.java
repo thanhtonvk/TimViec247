@@ -83,9 +83,9 @@ public class SignUpActivity extends AppCompatActivity {
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
                                 Account account;
                                 if (rbCaNhan.isActivated()) {
-                                    account = new Account(user.getUid(), user.getEmail(), email, true);
+                                    account = new Account(user.getUid(), user.getEmail(), fullName, true);
                                 } else {
-                                    account = new Account(user.getUid(), user.getEmail(), email, false);
+                                    account = new Account(user.getUid(), user.getEmail(), fullName, false);
                                 }
 
                                 reference.child(account.getId()).setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {

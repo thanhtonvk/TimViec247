@@ -44,7 +44,6 @@
                 android:textStyle="normal" />
 
             <EditText
-                android:text="thanhtonvk@gmail.com"
                 android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -63,7 +62,6 @@
                 android:textSize="15sp" />
 
             <EditText
-                android:text="thanhton"
                 android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"

@@ -25,7 +25,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="centerInside"
-                android:src="@drawable/eway" />
+               />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Cong ty co phan eway"
+
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -47,7 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="IT- Phan mem"
+
                     android:textColor="@color/black"
                     android:textSize="16sp" />
             </LinearLayout>

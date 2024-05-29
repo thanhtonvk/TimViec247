@@ -24,6 +24,7 @@ import com.utehy.timviec247.adapters.CompanyAdapter;
 import com.utehy.timviec247.adapters.JobAdapter;
 import com.utehy.timviec247.models.Company;
 import com.utehy.timviec247.models.Job;
+import com.utehy.timviec247.utils.Common;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,9 @@ public class HomeFragment extends Fragment {
     List<Job> viecLamTotNhatList = new ArrayList<>();
     JobAdapter viecLamTotNhatAdapter;
     RecyclerView rvViecLamTotNhat;
+    RecyclerView rvViecLamPhuHop;
+    List<Job> vietLamPhuHopList = new ArrayList<>();
+    JobAdapter viecLamPhuHopAdapter;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -50,6 +54,7 @@ public class HomeFragment extends Fragment {
         init();
         loadCongTy();
         loadViecLamTotNhat();
+        loadViecLamPhuHop();
     }
 
     @Override
@@ -70,6 +75,129 @@ public class HomeFragment extends Fragment {
         rvViecLamTotNhat = getActivity().findViewById(R.id.rvViecLamTotNhat);
         viecLamTotNhatAdapter = new JobAdapter(getContext(), viecLamTotNhatList);
         rvViecLamTotNhat.setAdapter(viecLamTotNhatAdapter);
+
+        rvViecLamPhuHop = getActivity().findViewById(R.id.rvPhuHop);
+        viecLamPhuHopAdapter = new JobAdapter(getContext(), vietLamPhuHopList);
+        rvViecLamPhuHop.setAdapter(viecLamPhuHopAdapter);
+    }
+
+    int namKN = 0;
+    String[] congViecMonMuons = new String[0];
+    String[] diaDiemMongMuons = new String[0];
+
+    private void loadViecLamPhuHop() {
+        //kiem tra nam kinh nghiem
+        database.getReference("KinhNghiem").child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                String data = snapshot.getValue(String.class);
+                if (data != null) {
+                    namKN = Integer.parseInt(data.trim());
+                }
+//kiem tra cong viec mong muon
+                database.getReference("CongViecMongMuon").child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String data = snapshot.getValue(String.class);
+                        if (data != null) {
+                            congViecMonMuons = data.split(",");
+                        }
+//kiem tra dia diem lam viec mong muon
+                        database.getReference("DiaDiemMongMuon").child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String data = snapshot.getValue(String.class);
+                                if (data != null) {
+                                    diaDiemMongMuons = data.split(",");
+                                }
+
+//lay ve danh sach congg viec
+                                reference.child("Jobs").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        vietLamPhuHopList.clear();
+                                        for (DataSnapshot key : snapshot.getChildren()
+                                        ) {
+                                            String subChild = key.getKey();
+                                            Log.e("TAG", "onDataChange: " + subChild);
+                                            reference.child("Jobs").child(subChild).addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    //
+                                                    for (DataSnapshot dataSnapshot : snapshot.getChildren()
+                                                    ) {
+
+                                                        Job job = dataSnapshot.getValue(Job.class);
+                                                        if (job.getKinhNghiem() >= namKN) {
+                                                            boolean isCongViec = false;
+                                                            for (String congViec : congViecMonMuons
+                                                            ) {
+                                                                if (Common.xoaDauTiengViet(job.getViTri()).contains(Common.xoaDauTiengViet(congViec))) {
+                                                                    isCongViec = true;
+                                                                    break;
+                                                                }
+                                                            }
+                                                            if (isCongViec) {
+                                                                boolean isDiaDiem = false;
+                                                                for (String diaDiem : diaDiemMongMuons
+                                                                ) {
+                                                                    if (Common.xoaDauTiengViet(job.getDiaChi()).contains(Common.xoaDauTiengViet(diaDiem))) {
+                                                                        isDiaDiem = true;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                                if (isDiaDiem) {
+                                                                    vietLamPhuHopList.add(job);
+                                                                    viecLamPhuHopAdapter.notifyDataSetChanged();
+                                                                }
+                                                            }
+
+
+                                                        }
+
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+                                        }
+
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void loadViecLamTotNhat() {
@@ -80,7 +208,7 @@ public class HomeFragment extends Fragment {
                 for (DataSnapshot key : snapshot.getChildren()
                 ) {
                     String subChild = key.getKey();
-                    Log.e("TAG", "onDataChange: "+subChild );
+                    Log.e("TAG", "onDataChange: " + subChild);
                     reference.child("Jobs").child(subChild).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.utehy.timviec247.R;
 import com.utehy.timviec247.activities.business.BusinessActivity;
 import com.utehy.timviec247.models.Account;
+import com.utehy.timviec247.models.ThongTin;
 import com.utehy.timviec247.utils.Common;
 
 public class LoginActivity extends AppCompatActivity {
@@ -103,12 +104,26 @@ public class LoginActivity extends AppCompatActivity {
                 Account account = snapshot.getValue(Account.class);
                 Common.account = account;
 
+                assert account != null;
                 if (account.isType()) {
                     startActivity(new Intent(getApplicationContext(), ParentActivity.class));
                 } else {
                     startActivity(new Intent(getApplicationContext(), BusinessActivity.class));
                 }
+                finish();
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        database.getReference("ThongTin").child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ThongTin thongTin = snapshot.getValue(ThongTin.class);
+                Common.thongTin=thongTin;
             }
 
             @Override

@@ -3,6 +3,7 @@ package com.utehy.timviec247.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,17 +24,18 @@ import com.utehy.timviec247.R;
 import com.utehy.timviec247.activities.JobDetailsActivity;
 import com.utehy.timviec247.models.Company;
 import com.utehy.timviec247.models.Job;
+import com.utehy.timviec247.models.UngTuyen;
 import com.utehy.timviec247.utils.Common;
 
 import java.util.List;
 
-public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
+public class TrangThaiAdapter extends RecyclerView.Adapter<TrangThaiAdapter.ViewHolder> {
     FirebaseDatabase database;
     DatabaseReference reference;
     Context context;
     List<Job> JobList;
 
-    public JobAdapter(Context context, List<Job> JobList) {
+    public TrangThaiAdapter(Context context, List<Job> JobList) {
         this.context = context;
         this.JobList = JobList;
         database = FirebaseDatabase.getInstance();
@@ -42,15 +44,14 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_post, parent, false));
+    public TrangThaiAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new TrangThaiAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_trangthai, parent, false));
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TrangThaiAdapter.ViewHolder holder, int position) {
         Job Job = JobList.get(position);
-        Log.e("TAG", "onBindViewHolder: " + Job.getIdAccount());
         holder.tvViTriCongViec.setText(Job.getViTri());
         reference.child("CongTy").child(Job.getIdAccount()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -72,8 +73,39 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
 
         holder.tvDiaChi.setText(Job.getDiaChi());
         holder.tvKinhNghiem.setText(Job.getKinhNghiem() + " năm");
-        holder.tvThoiGian.setText("Thời gian ứng tuyển : " + Job.getThoiGian() + " ngày");
         holder.tvMucLuong.setText(Job.getLuongMin() + " - " + Job.getLuongMax() + " triệu");
+
+
+        reference.child("UngTuyen").child(Job.getIdAccount()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    UngTuyen ut = dataSnapshot.getValue(UngTuyen.class);
+                    if (ut != null) {
+                        if (String.valueOf(ut.getIdTaiKhoanUngTuyen()).equalsIgnoreCase(String.valueOf(Common.account.getId())) && String.valueOf(Job.getId()).equalsIgnoreCase(String.valueOf(ut.getIdCongViec()))) {
+                            if (ut.getTrangThai() == 1) {
+                                holder.tvTrangThai.setText("Đã chấp nhận");
+                                holder.tvTrangThai.setTextColor(Color.GREEN);
+                            } else if (ut.getTrangThai() == 2) {
+                                holder.tvTrangThai.setText("Đã từ chỗi");
+                                holder.tvTrangThai.setTextColor(Color.RED);
+                            } else {
+                                holder.tvTrangThai.setText("Đang chờ ");
+                                holder.tvTrangThai.setTextColor(Color.YELLOW);
+                            }
+                        }
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,6 +125,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgLogo;
         TextView tvViTriCongViec, tvCongTy, tvDiaChi, tvKinhNghiem, tvThoiGian, tvMucLuong;
+        TextView tvTrangThai;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -103,6 +136,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
             tvKinhNghiem = itemView.findViewById(R.id.tvKinhNghiem);
             tvThoiGian = itemView.findViewById(R.id.tvThoiGian);
             tvMucLuong = itemView.findViewById(R.id.tvMucLuong);
+            tvTrangThai = itemView.findViewById(R.id.tvTrangThai);
         }
     }
 }

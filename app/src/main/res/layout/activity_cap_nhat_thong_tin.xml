@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".fragments.business.BussAccFragment">
+    tools:context=".activities.CapNhatThongTinActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:background="@color/primary"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Thông tin công ty"
+        android:text="Thông tin cá nhân"
         android:textColor="@color/white"
         android:textSize="24sp" />
 
@@ -30,18 +30,18 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tên công ty"
+                android:text="Avatar"
                 android:textColor="@color/primary"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/edtTenCongTy"
+                android:id="@+id/edtAvatar"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/border_editext"
                 android:backgroundTint="#F6F4F5"
-                android:hint="Nhập tên công ty"
+                android:hint="Nhập link hình ảnh "
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:textColor="@color/black"
@@ -51,7 +51,28 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SĐT công ty"
+                android:text="Địa chỉ"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtDiaChi"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_editext"
+                android:backgroundTint="#F6F4F5"
+                android:hint="Nhập địa chỉ "
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B7B7B7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SĐT"
                 android:textColor="@color/primary"
                 android:textSize="18sp" />
 
@@ -62,7 +83,8 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/border_editext"
                 android:backgroundTint="#F6F4F5"
-                android:hint="Nhập SDT công ty"
+                android:hint="Nhập SDT"
+                android:inputType="phone"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:textColor="@color/black"
@@ -72,7 +94,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Email công ty"
+                android:text="Email"
                 android:textColor="@color/primary"
                 android:textSize="18sp" />
 
@@ -83,7 +105,8 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/border_editext"
                 android:backgroundTint="#F6F4F5"
-                android:hint="Nhập email công ty"
+                android:hint="Nhập email"
+                android:inputType="textEmailAddress"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:textColor="@color/black"
@@ -93,91 +116,30 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Địa chỉ công ty"
+                android:text="Ngày sinh"
                 android:textColor="@color/primary"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/edtDiaChiCongTy"
+                android:id="@+id/edtNgaySinh"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/border_editext"
                 android:backgroundTint="#F6F4F5"
-                android:hint="Nhập website công ty"
+                android:hint="Nhập ngày sinh"
+                android:inputType="date"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:textColor="@color/black"
                 android:textColorHint="#B7B7B7"
                 android:textSize="15sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Website công ty"
-                android:textColor="@color/primary"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/edtWebsiteCongTy"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/border_editext"
-                android:backgroundTint="#F6F4F5"
-                android:hint="Nhập địa chỉ công ty"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textColor="@color/black"
-                android:textColorHint="#B7B7B7"
-                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Linh vực công ty"
-                android:textColor="@color/primary"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/edtLinhVuc"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/border_editext"
-                android:backgroundTint="#F6F4F5"
-                android:hint="Nhập lĩnh vực công ty"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textColor="@color/black"
-                android:textColorHint="#B7B7B7"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Logo công ty"
-                android:textColor="@color/primary"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/edtLogo"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/border_editext"
-                android:backgroundTint="#F6F4F5"
-                android:hint="Nhập link logo"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textColor="@color/black"
-                android:textColorHint="#B7B7B7"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Giới thiệu công ty"
+                android:text="Giới thiệu bản thân "
                 android:textColor="@color/primary"
                 android:textSize="18sp" />
 
@@ -188,7 +150,7 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/border_editext"
                 android:backgroundTint="#F6F4F5"
-                android:hint="Nhập giới thiệu công ty "
+                android:hint="Nhập giới thiệu bản thân"
                 android:inputType="textMultiLine"
                 android:maxHeight="200dp"
                 android:minHeight="100dp"
@@ -206,16 +168,6 @@
                 android:background="@drawable/border_button"
                 android:backgroundTint="@color/primary"
                 android:text="Cập nhật"
-                android:textColor="@color/white" />
-
-            <Button
-                android:id="@+id/btnDangXuat"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/border_button"
-                android:backgroundTint="@color/primary"
-                android:text="Đăng xuất"
                 android:textColor="@color/white" />
         </LinearLayout>
     </ScrollView>

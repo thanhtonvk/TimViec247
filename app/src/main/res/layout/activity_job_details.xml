@@ -37,14 +37,14 @@
                         android:layout_height="100dp"
                         android:layout_gravity="center_horizontal"
                         android:scaleType="centerInside"
-                        android:src="@drawable/eway" />
+                        />
 
                     <TextView
                         android:id="@+id/tvViTriCongViec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Junior AI Engineer"
+
                         android:textColor="@color/black"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -54,7 +54,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Công ty cổ phần EWAY Việt Nam"
+
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -63,7 +63,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Thông tin công ty"
+
                         android:textColor="@color/primary"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -112,7 +112,7 @@
                             android:layout_below="@id/txtLuong"
                             android:layout_centerHorizontal="true"
                             android:gravity="center"
-                            android:text="20-25 triệu"
+
                             android:textColor="@color/primary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -148,7 +148,7 @@
                             android:layout_below="@id/txtLoc"
                             android:layout_centerHorizontal="true"
                             android:gravity="center"
-                            android:text="20-25 triệu"
+
                             android:textColor="@color/primary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -184,7 +184,7 @@
                             android:layout_below="@id/txtEx"
                             android:layout_centerHorizontal="true"
                             android:gravity="center"
-                            android:text="20-25 triệu"
+
                             android:textColor="@color/primary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -236,7 +236,7 @@
                         android:id="@+id/tvKinhNghiem2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="2 năm"
+
                         android:textColor="@color/black" />
 
 
@@ -277,7 +277,7 @@
                         android:id="@+id/tvHinhThuc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Toàn thời gian"
+
                         android:textColor="@color/black" />
 
 
@@ -318,7 +318,7 @@
                         android:id="@+id/tvSoLuong"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="3 người"
+
                         android:textColor="@color/black" />
 
 
@@ -359,7 +359,7 @@
                         android:id="@+id/tvGioiTinh"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Không yêu cầu"
+
                         android:textColor="@color/black" />
 
 
@@ -400,7 +400,7 @@
                         android:id="@+id/tvCapBac"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nhân viên"
+
                         android:textColor="@color/black" />
 
 
@@ -441,7 +441,7 @@
                         android:id="@+id/tvThoiGian"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="30/06/2024"
+
                         android:textColor="@color/black" />
                 </LinearLayout>
             </LinearLayout>
@@ -460,7 +460,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Tham gia nghiên cứu"
+
                 android:textColor="@color/black" />
 
             <TextView
@@ -477,7 +477,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Tham gia nghiên cứu"
+
                 android:textColor="@color/black" />
 
             <TextView
@@ -494,7 +494,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Tham gia nghiên cứu"
+
                 android:textColor="@color/black" />
 
             <TextView
@@ -511,7 +511,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Tham gia nghiên cứu"
+
                 android:textColor="@color/black" />
 
             <TextView
@@ -528,7 +528,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Tham gia nghiên cứu"
+
                 android:textColor="@color/black" />
         </LinearLayout>
     </ScrollView>
