@@ -27,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.utehy.timviec247.R;
 import com.utehy.timviec247.activities.TimKiemActivity;
+import com.utehy.timviec247.activities.ViecLamPhuHopActivity;
+import com.utehy.timviec247.activities.ViecLamTotNhatActivity;
 import com.utehy.timviec247.adapters.CompanyAdapter;
 import com.utehy.timviec247.adapters.JobAdapter;
 import com.utehy.timviec247.models.Company;
@@ -55,6 +57,7 @@ public class HomeFragment extends Fragment {
     List<Job> vietLamPhuHopList = new ArrayList<>();
     JobAdapter viecLamPhuHopAdapter;
     EditText edtTimKiem;
+    TextView txtViecLamPhuHop,txtViecLamTotNhat;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -64,6 +67,7 @@ public class HomeFragment extends Fragment {
         loadViecLamTotNhat();
         loadViecLamPhuHop();
         timKiem();
+        onClick();
     }
 
     @Override
@@ -89,6 +93,22 @@ public class HomeFragment extends Fragment {
         viecLamPhuHopAdapter = new JobAdapter(getContext(), vietLamPhuHopList, false);
         rvViecLamPhuHop.setAdapter(viecLamPhuHopAdapter);
         edtTimKiem = getActivity().findViewById(R.id.edtTimKiem);
+        txtViecLamPhuHop = getActivity().findViewById(R.id.txtViecLamPhuHop);
+        txtViecLamTotNhat= getActivity().findViewById(R.id.txtViecLamTotNhat);
+    }
+    private void onClick(){
+        txtViecLamPhuHop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ViecLamPhuHopActivity.class));
+            }
+        });
+        txtViecLamTotNhat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ViecLamTotNhatActivity.class));
+            }
+        });
     }
 
     private void timKiem() {

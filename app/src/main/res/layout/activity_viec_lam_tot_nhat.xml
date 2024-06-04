@@ -24,51 +24,8 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/border_button"
-        android:drawableRight="@drawable/search"
-        android:hint="Tìm kiếm công việc"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:textColorHint="@color/text_hint" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center">
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/border_button" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/border_button" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/border_button" />
-    </LinearLayout>
-
-
     <ScrollView
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -76,14 +33,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp">
-
-            <androidx.cardview.widget.CardView
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCongViec"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="@color/white"
-                app:cardCornerRadius="10dp"/>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

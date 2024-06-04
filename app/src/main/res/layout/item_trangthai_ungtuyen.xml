@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:backgroundTint="@color/white"
-        app:cardCornerRadius="10dp">
+        android:backgroundTint="#FBE9E7"
+        app:cardCornerRadius="20dp">
 
 
         <LinearLayout
@@ -24,8 +24,7 @@
                 android:id="@+id/imgLogo"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:scaleType="centerInside"
-                />
+                android:scaleType="centerInside" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,7 +37,7 @@
                     android:layout_height="wrap_content"
 
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -47,7 +46,7 @@
                     android:layout_height="wrap_content"
 
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="14sp" />
 
 
                 <LinearLayout
@@ -81,19 +80,34 @@
                         android:id="@+id/btnChapNhan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/border_button"
                         android:backgroundTint="#4CAF50"
-                        android:text="Chấp nhận" />
+                        android:text="Chấp nhận"
+                        android:textAllCaps="false" />
 
                     <Button
                         android:id="@+id/btnTuChoi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/border_button"
                         android:backgroundTint="#D50000"
-                        android:text="Từ chối" />
+                        android:text="Từ chối"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:id="@+id/btnXemCV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_button"
+                        android:backgroundTint="#FF6D00"
+                        android:text="Xem CV"
+                        android:textAllCaps="false" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

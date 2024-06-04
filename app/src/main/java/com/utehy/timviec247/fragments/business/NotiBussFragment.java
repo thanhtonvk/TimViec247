@@ -1,5 +1,6 @@
 package com.utehy.timviec247.fragments.business;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.utehy.timviec247.R;
 import com.utehy.timviec247.adapters.TrangThaiAdapter;
 import com.utehy.timviec247.adapters.business.TrangThaiUngTuyenAdapter;
+import com.utehy.timviec247.adapters.business.TuyenDungAdapter;
 import com.utehy.timviec247.models.Job;
 import com.utehy.timviec247.models.UngTuyen;
 import com.utehy.timviec247.utils.Common;
@@ -34,7 +36,7 @@ public class NotiBussFragment extends Fragment {
 
     FirebaseDatabase database;
     List<Job> viecLams = new ArrayList<>();
-    TrangThaiUngTuyenAdapter trangThaiAdapter;
+    TuyenDungAdapter tuyenDungAdapter;
     RecyclerView rvViecLam;
 
     @Override
@@ -57,30 +59,17 @@ public class NotiBussFragment extends Fragment {
     }
 
     private void load() {
-
-        database.getReference("UngTuyen").child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
+        database.getReference("Jobs").child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 viecLams.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()
                 ) {
-                    UngTuyen ungTuyen = dataSnapshot.getValue(UngTuyen.class);
-                    if (ungTuyen != null) {
-                        database.getReference("Jobs").child(Common.account.getId()).child(ungTuyen.getIdCongViec()).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                Job job = snapshot.getValue(Job.class);
-                                viecLams.add(job);
-                                trangThaiAdapter.notifyDataSetChanged();
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                    }
+                    Job job = dataSnapshot.getValue(Job.class);
+                    viecLams.add(job);
                 }
+                tuyenDungAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -88,12 +77,43 @@ public class NotiBussFragment extends Fragment {
 
             }
         });
+
+//        database.getReference("UngTuyen").child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                viecLams.clear();
+//                for (DataSnapshot dataSnapshot : snapshot.getChildren()
+//                ) {
+//                    UngTuyen ungTuyen = dataSnapshot.getValue(UngTuyen.class);
+//                    if (ungTuyen != null) {
+//                        database.getReference("Jobs").child(Common.account.getId()).child(ungTuyen.getIdCongViec()).addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                Job job = snapshot.getValue(Job.class);
+//                                viecLams.add(job);
+//                                trangThaiAdapter.notifyDataSetChanged();
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                            }
+//                        });
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 
     private void init() {
         database = FirebaseDatabase.getInstance();
         rvViecLam = getView().findViewById(R.id.rvCongViec);
-        trangThaiAdapter = new TrangThaiUngTuyenAdapter(getContext(), viecLams);
-        rvViecLam.setAdapter(trangThaiAdapter);
+        tuyenDungAdapter = new TuyenDungAdapter(getContext(), viecLams);
+        rvViecLam.setAdapter(tuyenDungAdapter);
     }
 }

@@ -22,17 +22,6 @@
                 android:layout_marginRight="15dp"
                 android:orientation="vertical">
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/border_button"
-                    android:drawableRight="@drawable/search"
-                    android:hint="Tìm kiếm việc đã đăng "
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:textColorHint="@color/text_hint" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

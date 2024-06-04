@@ -91,7 +91,8 @@ public class TrangThaiUngTuyenAdapter extends RecyclerView.Adapter<TrangThaiUngT
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 Account account = snapshot.getValue(Account.class);
                                 if (account != null) {
-                                    holder.tvHoTen.setText(account.getFullName());
+
+                                    holder.tvHoTen.setText(account.getFullName() +" đã ứng tuyển");
                                 }
                             }
 
@@ -101,6 +102,7 @@ public class TrangThaiUngTuyenAdapter extends RecyclerView.Adapter<TrangThaiUngT
                             }
                         });
                         if (Job.getId().equalsIgnoreCase(ungTuyen.getIdCongViec())) {
+                            holder.tvViTriCongViec.setText(ungTuyen.getThoiGian());
                             if (ungTuyen.getTrangThai() == 1) {
                                 holder.tvTrangThaiUngTuyen.setText("Đã chấp nhận");
                                 holder.tvTrangThaiUngTuyen.setTextColor(Color.GREEN);
@@ -144,7 +146,7 @@ public class TrangThaiUngTuyenAdapter extends RecyclerView.Adapter<TrangThaiUngT
                 }
             }
         });
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.btnXemCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Common.ungTuyen = ungTuyen;
@@ -165,7 +167,7 @@ public class TrangThaiUngTuyenAdapter extends RecyclerView.Adapter<TrangThaiUngT
         ImageView imgLogo;
         TextView tvViTriCongViec;
         TextView tvTrangThaiUngTuyen, tvHoTen;
-        Button btnChapNhan, btnTuChoi;
+        Button btnChapNhan, btnTuChoi, btnXemCV;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -175,6 +177,7 @@ public class TrangThaiUngTuyenAdapter extends RecyclerView.Adapter<TrangThaiUngT
             btnChapNhan = itemView.findViewById(R.id.btnChapNhan);
             btnTuChoi = itemView.findViewById(R.id.btnTuChoi);
             tvHoTen = itemView.findViewById(R.id.tvHoTen);
+            btnXemCV = itemView.findViewById(R.id.btnXemCV);
         }
     }
 }
