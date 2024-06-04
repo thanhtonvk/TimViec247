@@ -93,7 +93,7 @@ public class JobDetailsActivity extends AppCompatActivity {
 
     private void luuCV() {
         String id = String.valueOf(new Random().nextInt());
-        database.getReference("LuuCV").child(Common.account.getId()).child(id).setValue(Common.job).addOnCompleteListener(new OnCompleteListener<Void>() {
+        database.getReference("LuuCV").child(Common.account.getId()).child(Common.job.getId()).setValue(Common.job).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
@@ -108,8 +108,7 @@ public class JobDetailsActivity extends AppCompatActivity {
 
     private void ungTuyenCV() {
         UngTuyen ungTuyen = new UngTuyen();
-        String id = String.valueOf(new Random().nextInt());
-        ungTuyen.setId(id);
+        ungTuyen.setId(Common.job.getId());
         ungTuyen.setIdTaiKhoanUngTuyen(Common.account.getId());
         ungTuyen.setIdCongTy(Common.company.getId());
         ungTuyen.setIdCongViec(Common.job.getId());
@@ -132,8 +131,7 @@ public class JobDetailsActivity extends AppCompatActivity {
     }
 
     private void addCongViecUngTuyen() {
-        String id = String.valueOf(new Random().nextInt());
-        database.getReference("CongViecDaUngTuyen").child(Common.account.getId()).child(id).setValue(Common.job);
+        database.getReference("CongViecDaUngTuyen").child(Common.account.getId()).child(Common.job.getId()).setValue(Common.job);
     }
 
     @SuppressLint("SetTextI18n")

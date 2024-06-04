@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".activities.ViecLamDaUngTuyenActivity">
+    tools:context=".activities.TimKiemActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:background="@color/primary"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Việc làm đã ứng tuyển"
+        android:text="Tìm kiếm "
         android:textColor="@color/white"
         android:textSize="24sp" />
 

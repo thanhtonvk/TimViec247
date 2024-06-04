@@ -1,5 +1,6 @@
 package com.utehy.timviec247.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,15 +50,16 @@ public class CompanyDetailsActivity extends AppCompatActivity {
         tvGioiThieu = findViewById(R.id.tvGioiThieu);
     }
 
+    @SuppressLint("CheckResult")
     private void loadData() {
-        Glide.with(CompanyDetailsActivity.this).load(Common.company.getLogo());
+        Glide.with(CompanyDetailsActivity.this).load(Common.company.getLogo()).into(imgLogo);
         tvTenCongTy1.setText(Common.company.getTenCongTy());
         tvTenCongTy2.setText(Common.company.getTenCongTy());
         tvDiaChi.setText(Common.company.getDiaChi());
         tvWebsite.setText(Common.company.getWebsite());
         tvGioiThieu.setText(Common.company.getGioiThieu());
         rvJob = findViewById(R.id.rvJob);
-        jobAdapter = new JobAdapter(this, jobList);
+        jobAdapter = new JobAdapter(this, jobList,false);
         rvJob.setAdapter(jobAdapter);
 
     }

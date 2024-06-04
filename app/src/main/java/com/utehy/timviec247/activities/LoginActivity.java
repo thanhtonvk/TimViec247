@@ -85,12 +85,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    dialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "Lỗi kết nối", Toast.LENGTH_LONG).show();
-                }
             });
         }
 

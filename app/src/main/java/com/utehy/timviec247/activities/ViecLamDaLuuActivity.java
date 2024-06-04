@@ -60,7 +60,7 @@ public class ViecLamDaLuuActivity extends AppCompatActivity {
 
     private void init() {
         rvViecLam = findViewById(R.id.rvCongViec);
-        jobAdapter = new JobAdapter(getApplicationContext(), viecLams);
+        jobAdapter = new JobAdapter(getApplicationContext(), viecLams,true);
         rvViecLam.setAdapter(jobAdapter);
     }
 }

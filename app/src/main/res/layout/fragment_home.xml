@@ -28,8 +28,11 @@
                 android:background="@drawable/border_button"
                 android:drawableRight="@drawable/search"
                 android:hint="Tìm kiếm công việc"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
+                android:textColor="@color/black"
                 android:textColorHint="@color/text_hint" />
 
             <LinearLayout
@@ -50,7 +53,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:gravity="right"
                     android:text="Xem tất cả"
                     android:textColor="@color/primary"

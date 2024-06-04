@@ -16,6 +16,7 @@ public class Common {
     public static Company company;
     public static ThongTin thongTin;
     public static UngTuyen ungTuyen;
+    public static  String timKiem;
 
     public static String xoaDauTiengViet(String s) {
         String temp = Normalizer.normalize(s, Normalizer.Form.NFD);

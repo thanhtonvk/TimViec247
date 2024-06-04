@@ -1,5 +1,7 @@
 package com.utehy.timviec247.fragments;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,9 +11,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.utehy.timviec247.R;
+import com.utehy.timviec247.activities.TimKiemActivity;
 import com.utehy.timviec247.adapters.CompanyAdapter;
 import com.utehy.timviec247.adapters.JobAdapter;
 import com.utehy.timviec247.models.Company;
@@ -47,6 +54,7 @@ public class HomeFragment extends Fragment {
     RecyclerView rvViecLamPhuHop;
     List<Job> vietLamPhuHopList = new ArrayList<>();
     JobAdapter viecLamPhuHopAdapter;
+    EditText edtTimKiem;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -55,6 +63,7 @@ public class HomeFragment extends Fragment {
         loadCongTy();
         loadViecLamTotNhat();
         loadViecLamPhuHop();
+        timKiem();
     }
 
     @Override
@@ -73,12 +82,29 @@ public class HomeFragment extends Fragment {
         rvCongTy.setAdapter(companyAdapter);
 
         rvViecLamTotNhat = getActivity().findViewById(R.id.rvViecLamTotNhat);
-        viecLamTotNhatAdapter = new JobAdapter(getContext(), viecLamTotNhatList);
+        viecLamTotNhatAdapter = new JobAdapter(getContext(), viecLamTotNhatList, false);
         rvViecLamTotNhat.setAdapter(viecLamTotNhatAdapter);
 
         rvViecLamPhuHop = getActivity().findViewById(R.id.rvPhuHop);
-        viecLamPhuHopAdapter = new JobAdapter(getContext(), vietLamPhuHopList);
+        viecLamPhuHopAdapter = new JobAdapter(getContext(), vietLamPhuHopList, false);
         rvViecLamPhuHop.setAdapter(viecLamPhuHopAdapter);
+        edtTimKiem = getActivity().findViewById(R.id.edtTimKiem);
+    }
+
+    private void timKiem() {
+        edtTimKiem.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_SEARCH) {
+                    String key = edtTimKiem.getText().toString();
+                    if (!key.trim().isEmpty()) {
+                        Common.timKiem = Common.xoaDauTiengViet(key);
+                        startActivity(new Intent(getContext(), TimKiemActivity.class));
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     int namKN = 0;
@@ -95,7 +121,7 @@ public class HomeFragment extends Fragment {
                 if (data != null) {
                     namKN = Integer.parseInt(data.trim());
                 }
-//kiem tra cong viec mong muon
+                //kiem tra cong viec mong muon
                 database.getReference("CongViecMongMuon").child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -103,7 +129,7 @@ public class HomeFragment extends Fragment {
                         if (data != null) {
                             congViecMonMuons = data.split(",");
                         }
-//kiem tra dia diem lam viec mong muon
+                        //kiem tra dia diem lam viec mong muon
                         database.getReference("DiaDiemMongMuon").child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -111,8 +137,7 @@ public class HomeFragment extends Fragment {
                                 if (data != null) {
                                     diaDiemMongMuons = data.split(",");
                                 }
-
-//lay ve danh sach congg viec
+                                //lay ve danh sach congg viec
                                 reference.child("Jobs").addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -120,8 +145,8 @@ public class HomeFragment extends Fragment {
                                         for (DataSnapshot key : snapshot.getChildren()
                                         ) {
                                             String subChild = key.getKey();
-                                            Log.e("TAG", "onDataChange: " + subChild);
                                             reference.child("Jobs").child(subChild).addValueEventListener(new ValueEventListener() {
+                                                @SuppressLint("NotifyDataSetChanged")
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                     //
@@ -129,7 +154,8 @@ public class HomeFragment extends Fragment {
                                                     ) {
 
                                                         Job job = dataSnapshot.getValue(Job.class);
-                                                        if (job.getKinhNghiem() >= namKN) {
+                                                        assert job != null;
+                                                        if (job.getKinhNghiem() <= namKN) {
                                                             boolean isCongViec = false;
                                                             for (String congViec : congViecMonMuons
                                                             ) {
@@ -149,14 +175,12 @@ public class HomeFragment extends Fragment {
                                                                 }
                                                                 if (isDiaDiem) {
                                                                     vietLamPhuHopList.add(job);
-                                                                    viecLamPhuHopAdapter.notifyDataSetChanged();
                                                                 }
                                                             }
-
-
                                                         }
 
                                                     }
+                                                    viecLamPhuHopAdapter.notifyDataSetChanged();
                                                 }
 
                                                 @Override
@@ -204,21 +228,23 @@ public class HomeFragment extends Fragment {
         reference.child("Jobs").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 viecLamTotNhatList.clear();
                 for (DataSnapshot key : snapshot.getChildren()
                 ) {
                     String subChild = key.getKey();
-                    Log.e("TAG", "onDataChange: " + subChild);
                     reference.child("Jobs").child(subChild).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            //
+                            int count = 0;
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()
                             ) {
                                 Job job = dataSnapshot.getValue(Job.class);
                                 viecLamTotNhatList.add(job);
-                                viecLamTotNhatAdapter.notifyDataSetChanged();
+                                count += 1;
+                                if (count == 4) break;
                             }
+                            viecLamTotNhatAdapter.notifyDataSetChanged();
                         }
 
                         @Override
@@ -240,14 +266,19 @@ public class HomeFragment extends Fragment {
 
     private void loadCongTy() {
         reference.child("CongTy").addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int count = 0;
                 companyList.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     Company company = ds.getValue(Company.class);
                     companyList.add(company);
-                    companyAdapter.notifyDataSetChanged();
+                    count += 1;
+                    if (count == 4) break;
+
                 }
+                companyAdapter.notifyDataSetChanged();
             }
 
             @Override

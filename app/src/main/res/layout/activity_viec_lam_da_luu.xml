@@ -15,7 +15,7 @@
         android:background="@color/primary"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Thông tin cá nhân"
+        android:text="Viêc làm đã lưu"
         android:textColor="@color/white"
         android:textSize="24sp" />
 

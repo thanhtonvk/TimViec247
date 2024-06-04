@@ -20,7 +20,7 @@ import com.utehy.timviec247.utils.Common;
 import com.utehy.timviec247.utils.EditextValidator;
 
 public class CapNhatThongTinActivity extends AppCompatActivity {
-    EditText edtDiaChi, edtSdt, edtEmail, edtNgaySinh, edtGioiThieu, edtAvatar;
+    EditText edtDiaChi, edtSdt, edtEmail, edtNgaySinh, edtGioiThieu, edtAvatar, edtHoTen;
     Button btnCapNhat;
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -43,7 +43,8 @@ public class CapNhatThongTinActivity extends AppCompatActivity {
         btnCapNhat = findViewById(R.id.btnCapNhat);
         edtAvatar = findViewById(R.id.edtAvatar);
         database = FirebaseDatabase.getInstance();
-        reference = database.getReference("ThongTin");
+        edtHoTen = findViewById(R.id.edtHoTen);
+        reference = database.getReference();
     }
 
     private void onClick() {
@@ -63,22 +64,24 @@ public class CapNhatThongTinActivity extends AppCompatActivity {
             edtNgaySinh.setText(Common.thongTin.getNgaySinh());
             edtGioiThieu.setText(Common.thongTin.getGioiThieu());
             edtAvatar.setText(Common.thongTin.getHinhAnh());
+            edtHoTen.setText(Common.account.getFullName());
         }
     }
 
     private void add() {
-        boolean isValid = EditextValidator.validateAllEditTexts(edtDiaChi, edtSdt, edtEmail, edtNgaySinh, edtGioiThieu);
+        boolean isValid = EditextValidator.validateAllEditTexts(edtDiaChi, edtSdt, edtEmail, edtNgaySinh, edtGioiThieu, edtHoTen);
         if (isValid) {
-            String[] listText = EditextValidator.getTextFromEditTexts(edtDiaChi, edtSdt, edtEmail, edtNgaySinh, edtGioiThieu,edtAvatar);
-            ThongTin thongTin = new ThongTin(Common.account.getId(), listText[0], listText[1], listText[2], listText[3], listText[4],listText[5]);
+            String[] listText = EditextValidator.getTextFromEditTexts(edtDiaChi, edtSdt, edtEmail, edtNgaySinh, edtGioiThieu, edtAvatar);
+            ThongTin thongTin = new ThongTin(Common.account.getId(), listText[0], listText[1], listText[2], listText[3], listText[4], listText[5]);
             ProgressDialog dialog = new ProgressDialog(CapNhatThongTinActivity.this);
             dialog.setMessage("Loading");
             dialog.show();
-            reference.child(Common.account.getId()).setValue(thongTin).addOnCompleteListener(new OnCompleteListener<Void>() {
+            reference.child("ThongTin").child(Common.account.getId()).setValue(thongTin).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     dialog.dismiss();
                     if (task.isSuccessful()) {
+                        updateName();
                         Toast.makeText(CapNhatThongTinActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(CapNhatThongTinActivity.this, "Cập nhật không thành công", Toast.LENGTH_SHORT).show();
@@ -87,6 +90,9 @@ public class CapNhatThongTinActivity extends AppCompatActivity {
                 }
             });
         }
+    }
 
+    private void updateName() {
+        reference.child("Account").child(Common.account.getId()).child("fullName").setValue(edtHoTen.getText().toString());
     }
 }

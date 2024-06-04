@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,12 +33,13 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
     DatabaseReference reference;
     Context context;
     List<Job> JobList;
-
-    public JobAdapter(Context context, List<Job> JobList) {
+    boolean isDelete;
+    public JobAdapter(Context context, List<Job> JobList,boolean isDelete) {
         this.context = context;
         this.JobList = JobList;
         database = FirebaseDatabase.getInstance();
         reference = database.getReference();
+        this.isDelete = isDelete;
     }
 
     @NonNull
@@ -49,6 +51,9 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        if(isDelete){
+            holder.btnXoa.setVisibility(View.VISIBLE);
+        }
         Job Job = JobList.get(position);
         Log.e("TAG", "onBindViewHolder: " + Job.getIdAccount());
         holder.tvViTriCongViec.setText(Job.getViTri());
@@ -83,6 +88,12 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
                 context.startActivity(i);
             }
         });
+        holder.btnXoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reference.child("LuuCV").child(Common.account.getId()).child(Job.getId()).removeValue();
+            }
+        });
     }
 
     @Override
@@ -92,6 +103,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgLogo;
+        Button btnXoa;
         TextView tvViTriCongViec, tvCongTy, tvDiaChi, tvKinhNghiem, tvThoiGian, tvMucLuong;
 
         public ViewHolder(@NonNull View itemView) {
@@ -103,6 +115,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
             tvKinhNghiem = itemView.findViewById(R.id.tvKinhNghiem);
             tvThoiGian = itemView.findViewById(R.id.tvThoiGian);
             tvMucLuong = itemView.findViewById(R.id.tvMucLuong);
+            btnXoa= itemView.findViewById(R.id.btnDelete);
         }
     }
 }

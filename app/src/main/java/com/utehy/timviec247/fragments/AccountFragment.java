@@ -238,8 +238,6 @@ public class AccountFragment extends Fragment {
         tvDiadiem1 = getView().findViewById(R.id.tvDiadiem1);
         tvDiadiem2 = getView().findViewById(R.id.tvDiadiem2);
         tvDiadiem3 = getView().findViewById(R.id.tvDiadiem3);
-        tvSoLuongUngTuyen = getView().findViewById(R.id.tvSoLuongUngTuyen);
-        tvSoLuongLuu = getView().findViewById(R.id.tvSoLuongLuu);
         btnDangXuat = getView().findViewById(R.id.btnDangXuat);
         database = FirebaseDatabase.getInstance();
         cvLuu = getView().findViewById(R.id.cvViecDaLuu);

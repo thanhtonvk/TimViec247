@@ -82,7 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
                                 Account account;
-                                if (rbCaNhan.isActivated()) {
+                                if (rbCaNhan.isChecked()) {
                                     account = new Account(user.getUid(), user.getEmail(), fullName, true);
                                 } else {
                                     account = new Account(user.getUid(), user.getEmail(), fullName, false);
