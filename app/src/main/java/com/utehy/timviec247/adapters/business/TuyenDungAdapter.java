@@ -28,8 +28,9 @@ import com.utehy.timviec247.utils.Common;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class TuyenDungAdapter extends RecyclerView.Adapter<TuyenDungAdapter.ViewHolder>{
+public class TuyenDungAdapter extends RecyclerView.Adapter<TuyenDungAdapter.ViewHolder> {
     FirebaseDatabase database;
     DatabaseReference reference;
     Context context;
@@ -42,6 +43,8 @@ public class TuyenDungAdapter extends RecyclerView.Adapter<TuyenDungAdapter.View
         this.postList = postList;
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("CongTy");
+        trangThaiAdapter = new TrangThaiUngTuyenAdapter(context, viecLams);
+
     }
 
     @NonNull
@@ -50,44 +53,11 @@ public class TuyenDungAdapter extends RecyclerView.Adapter<TuyenDungAdapter.View
         return new TuyenDungAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_tuyendung, parent, false));
 
     }
-    private void load() {
-        database.getReference("UngTuyen").child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                viecLams.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()
-                ) {
 
-                    UngTuyen ungTuyen = dataSnapshot.getValue(UngTuyen.class);
-                    if (ungTuyen != null) {
-                        database.getReference("Jobs").child(Common.account.getId()).child(ungTuyen.getIdCongViec()).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                Log.e("TAG", snapshot.toString() );
-                                Job job = snapshot.getValue(Job.class);
-                                viecLams.add(job);
-                                trangThaiAdapter.notifyDataSetChanged();
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.rvUngTuyen.setAdapter(trangThaiAdapter);
         Job post = postList.get(position);
         holder.tvViTriCongViec.setText(post.getViTri());
         reference.child(post.getIdAccount()).addValueEventListener(new ValueEventListener() {
@@ -111,9 +81,8 @@ public class TuyenDungAdapter extends RecyclerView.Adapter<TuyenDungAdapter.View
         holder.tvKinhNghiem.setText(post.getKinhNghiem() + " năm");
         holder.tvThoiGian.setText("Thời gian ứng tuyển : " + post.getThoiGian() + " ngày");
         holder.tvMucLuong.setText(post.getLuongMin() + " - " + post.getLuongMax() + " triệu");
-        trangThaiAdapter = new TrangThaiUngTuyenAdapter(context,viecLams);
-        holder.rvUngTuyen.setAdapter(trangThaiAdapter);
-        load();
+
+
 
     }
 
@@ -122,7 +91,7 @@ public class TuyenDungAdapter extends RecyclerView.Adapter<TuyenDungAdapter.View
         return postList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgLogo;
         TextView tvViTriCongViec, tvCongTy, tvDiaChi, tvKinhNghiem, tvThoiGian, tvMucLuong;
         RecyclerView rvUngTuyen;
@@ -136,7 +105,7 @@ public class TuyenDungAdapter extends RecyclerView.Adapter<TuyenDungAdapter.View
             tvKinhNghiem = itemView.findViewById(R.id.tvKinhNghiem);
             tvThoiGian = itemView.findViewById(R.id.tvThoiGian);
             tvMucLuong = itemView.findViewById(R.id.tvMucLuong);
-            rvUngTuyen = itemView.findViewById(R.id.rvUngTuyen);
+//            rvUngTuyen = itemView.findViewById(R.id.rvUngTuyen);
         }
     }
 }

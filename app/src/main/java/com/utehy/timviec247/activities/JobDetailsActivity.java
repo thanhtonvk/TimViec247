@@ -48,6 +48,7 @@ public class JobDetailsActivity extends AppCompatActivity {
         }
 
         onClick();
+        getCompany();
     }
 
     private void init() {
