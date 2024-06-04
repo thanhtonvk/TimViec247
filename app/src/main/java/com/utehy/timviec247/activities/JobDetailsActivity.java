@@ -16,8 +16,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.utehy.timviec247.R;
+import com.utehy.timviec247.models.Company;
 import com.utehy.timviec247.models.UngTuyen;
 import com.utehy.timviec247.utils.Common;
 
@@ -133,12 +137,28 @@ public class JobDetailsActivity extends AppCompatActivity {
     private void addCongViecUngTuyen() {
         database.getReference("CongViecDaUngTuyen").child(Common.account.getId()).child(Common.job.getId()).setValue(Common.job);
     }
+    private void getCompany(){
+        database.getReference("CongTy").child(Common.job.getIdAccount()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Company company= snapshot.getValue(Company.class);
+                Common.company= company;
+                Glide.with(JobDetailsActivity.this).load(Common.company.getLogo()).into(imgLogo);
+                tvTenCongTy.setText(Common.company.getTenCongTy());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 
     @SuppressLint("SetTextI18n")
     private void loadData() {
-        Glide.with(JobDetailsActivity.this).load(Common.company.getLogo()).into(imgLogo);
+
         tvViTriCongViec.setText(Common.job.getViTri());
-        tvTenCongTy.setText(Common.company.getTenCongTy());
+
         tvMucLuong.setText(Common.job.getLuongMin() + "-" + Common.job.getLuongMax() + " triệu");
         tvDiaDiem.setText(Common.job.getDiaChi());
         tvKinhNghiem.setText(Common.job.getKinhNghiem() + " năm");

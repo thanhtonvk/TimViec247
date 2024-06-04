@@ -62,7 +62,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Company congTy = snapshot.getValue(Company.class);
                 if (congTy != null) {
-                    Common.company = congTy;
+//                    Common.company = congTy;
                     holder.tvCongTy.setText(congTy.getTenCongTy());
                     Glide.with(context).load(congTy.getLogo()).into(holder.imgLogo);
                 }
