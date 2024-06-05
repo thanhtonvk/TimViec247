@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.utehy.timviec247.R;
 import com.utehy.timviec247.activities.JobDetailsActivity;
+import com.utehy.timviec247.activities.LienHeActivity;
 import com.utehy.timviec247.models.Company;
 import com.utehy.timviec247.models.Job;
 import com.utehy.timviec247.models.UngTuyen;
@@ -79,9 +81,10 @@ public class TrangThaiAdapter extends RecyclerView.Adapter<TrangThaiAdapter.View
         reference.child("UngTuyen").child(Job.getIdAccount()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     UngTuyen ut = dataSnapshot.getValue(UngTuyen.class);
                     if (ut != null) {
+                        Common.ungTuyen = ut;
                         if (String.valueOf(ut.getIdTaiKhoanUngTuyen()).equalsIgnoreCase(String.valueOf(Common.account.getId())) && String.valueOf(Job.getId()).equalsIgnoreCase(String.valueOf(ut.getIdCongViec()))) {
                             if (ut.getTrangThai() == 1) {
                                 holder.tvTrangThai.setText("Đã chấp nhận");
@@ -115,6 +118,14 @@ public class TrangThaiAdapter extends RecyclerView.Adapter<TrangThaiAdapter.View
                 context.startActivity(i);
             }
         });
+        holder.btnLienHe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context, LienHeActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -126,6 +137,7 @@ public class TrangThaiAdapter extends RecyclerView.Adapter<TrangThaiAdapter.View
         ImageView imgLogo;
         TextView tvViTriCongViec, tvCongTy, tvDiaChi, tvKinhNghiem, tvThoiGian, tvMucLuong;
         TextView tvTrangThai;
+        Button btnLienHe;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -137,6 +149,7 @@ public class TrangThaiAdapter extends RecyclerView.Adapter<TrangThaiAdapter.View
             tvThoiGian = itemView.findViewById(R.id.tvThoiGian);
             tvMucLuong = itemView.findViewById(R.id.tvMucLuong);
             tvTrangThai = itemView.findViewById(R.id.tvTrangThai);
+            btnLienHe = itemView.findViewById(R.id.btnLienHe);
         }
     }
 }

@@ -14,6 +14,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.LienHeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.business.ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.TimKiemActivity"
             android:exported="false" />
         <activity

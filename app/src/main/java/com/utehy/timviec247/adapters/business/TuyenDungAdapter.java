@@ -87,9 +87,9 @@ public class TuyenDungAdapter extends RecyclerView.Adapter<TuyenDungAdapter.View
         });
     }
 
-    public void dialogTrangThai(Job job){
-        List<UngTuyen>ungTuyensList = new ArrayList<>();
-        TrangThaiUngTuyenAdapter adapter = new TrangThaiUngTuyenAdapter(context,ungTuyensList);
+    public void dialogTrangThai(Job job) {
+        List<UngTuyen> ungTuyensList = new ArrayList<>();
+        TrangThaiUngTuyenAdapter adapter = new TrangThaiUngTuyenAdapter(context, ungTuyensList);
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_trangthai);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -99,10 +99,11 @@ public class TuyenDungAdapter extends RecyclerView.Adapter<TuyenDungAdapter.View
         database.getReference("UngTuyen").child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot:snapshot.getChildren()
-                     ) {
-                    UngTuyen ungTuyen= dataSnapshot.getValue(UngTuyen.class);
-                    if(Objects.equals(ungTuyen.getIdCongViec(), job.getId())){
+                ungTuyensList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()
+                ) {
+                    UngTuyen ungTuyen = dataSnapshot.getValue(UngTuyen.class);
+                    if (Objects.equals(ungTuyen.getIdCongViec(), job.getId())) {
                         ungTuyensList.add(ungTuyen);
                     }
                 }
@@ -116,8 +117,6 @@ public class TuyenDungAdapter extends RecyclerView.Adapter<TuyenDungAdapter.View
         });
 
 
-
-
     }
 
     @Override
@@ -128,7 +127,6 @@ public class TuyenDungAdapter extends RecyclerView.Adapter<TuyenDungAdapter.View
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgLogo;
         TextView tvViTriCongViec, tvCongTy, tvDiaChi, tvKinhNghiem, tvThoiGian, tvMucLuong;
-        RecyclerView rvUngTuyen;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

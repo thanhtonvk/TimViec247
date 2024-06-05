@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +22,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.utehy.timviec247.R;
-import com.utehy.timviec247.activities.JobDetailsActivity;
+import com.utehy.timviec247.activities.business.ChatActivity;
 import com.utehy.timviec247.activities.business.XemCVActivity;
 import com.utehy.timviec247.models.Account;
-import com.utehy.timviec247.models.Company;
-import com.utehy.timviec247.models.Job;
 import com.utehy.timviec247.models.ThongTin;
 import com.utehy.timviec247.models.UngTuyen;
 import com.utehy.timviec247.utils.Common;
@@ -83,7 +80,7 @@ public class TrangThaiUngTuyenAdapter extends RecyclerView.Adapter<TrangThaiUngT
                 Account account = snapshot.getValue(Account.class);
                 if (account != null) {
 
-                    holder.tvHoTen.setText(account.getFullName() +" đã ứng tuyển");
+                    holder.tvHoTen.setText(account.getFullName() + " đã ứng tuyển");
                 }
             }
 
@@ -131,6 +128,15 @@ public class TrangThaiUngTuyenAdapter extends RecyclerView.Adapter<TrangThaiUngT
                 context.startActivity(i);
             }
         });
+        holder.btnChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Common.ungTuyen = ungTuyen;
+                Intent i = new Intent(context, ChatActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                context.startActivity(i);
+            }
+        });
 
     }
 
@@ -143,7 +149,7 @@ public class TrangThaiUngTuyenAdapter extends RecyclerView.Adapter<TrangThaiUngT
         ImageView imgLogo;
         TextView tvViTriCongViec;
         TextView tvTrangThaiUngTuyen, tvHoTen;
-        Button btnChapNhan, btnTuChoi, btnXemCV;
+        Button btnChapNhan, btnTuChoi, btnXemCV, btnChat;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -154,6 +160,7 @@ public class TrangThaiUngTuyenAdapter extends RecyclerView.Adapter<TrangThaiUngT
             btnTuChoi = itemView.findViewById(R.id.btnTuChoi);
             tvHoTen = itemView.findViewById(R.id.tvHoTen);
             btnXemCV = itemView.findViewById(R.id.btnXemCV);
+            btnChat = itemView.findViewById(R.id.btnLienHe);
         }
     }
 }
