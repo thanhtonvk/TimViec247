@@ -1,6 +1,7 @@
 package com.utehy.timviec247.adapters.business;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -35,15 +36,13 @@ public class TuyenDungAdapter extends RecyclerView.Adapter<TuyenDungAdapter.View
     DatabaseReference reference;
     Context context;
     List<Job> postList;
-    TrangThaiUngTuyenAdapter trangThaiAdapter;
-    List<Job> viecLams = new ArrayList<>();
 
     public TuyenDungAdapter(Context context, List<Job> postList) {
         this.context = context;
         this.postList = postList;
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("CongTy");
-        trangThaiAdapter = new TrangThaiUngTuyenAdapter(context, viecLams);
+
 
     }
 
@@ -57,7 +56,6 @@ public class TuyenDungAdapter extends RecyclerView.Adapter<TuyenDungAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.rvUngTuyen.setAdapter(trangThaiAdapter);
         Job post = postList.get(position);
         holder.tvViTriCongViec.setText(post.getViTri());
         reference.child(post.getIdAccount()).addValueEventListener(new ValueEventListener() {
@@ -81,6 +79,42 @@ public class TuyenDungAdapter extends RecyclerView.Adapter<TuyenDungAdapter.View
         holder.tvKinhNghiem.setText(post.getKinhNghiem() + " năm");
         holder.tvThoiGian.setText("Thời gian ứng tuyển : " + post.getThoiGian() + " ngày");
         holder.tvMucLuong.setText(post.getLuongMin() + " - " + post.getLuongMax() + " triệu");
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogTrangThai(post);
+            }
+        });
+    }
+
+    public void dialogTrangThai(Job job){
+        List<UngTuyen>ungTuyensList = new ArrayList<>();
+        TrangThaiUngTuyenAdapter adapter = new TrangThaiUngTuyenAdapter(context,ungTuyensList);
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_trangthai);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+        RecyclerView rvUngTuyen = dialog.findViewById(R.id.rvUngTuyen);
+        rvUngTuyen.setAdapter(adapter);
+        database.getReference("UngTuyen").child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot:snapshot.getChildren()
+                     ) {
+                    UngTuyen ungTuyen= dataSnapshot.getValue(UngTuyen.class);
+                    if(Objects.equals(ungTuyen.getIdCongViec(), job.getId())){
+                        ungTuyensList.add(ungTuyen);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
 
 
@@ -105,7 +139,6 @@ public class TuyenDungAdapter extends RecyclerView.Adapter<TuyenDungAdapter.View
             tvKinhNghiem = itemView.findViewById(R.id.tvKinhNghiem);
             tvThoiGian = itemView.findViewById(R.id.tvThoiGian);
             tvMucLuong = itemView.findViewById(R.id.tvMucLuong);
-//            rvUngTuyen = itemView.findViewById(R.id.rvUngTuyen);
         }
     }
 }

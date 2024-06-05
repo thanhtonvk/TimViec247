@@ -38,11 +38,11 @@ public class TrangThaiUngTuyenAdapter extends RecyclerView.Adapter<TrangThaiUngT
     FirebaseDatabase database;
     DatabaseReference reference;
     Context context;
-    List<Job> JobList;
+    List<UngTuyen> UngTuyenList;
 
-    public TrangThaiUngTuyenAdapter(Context context, List<Job> JobList) {
+    public TrangThaiUngTuyenAdapter(Context context, List<UngTuyen> UngTuyenList) {
         this.context = context;
-        this.JobList = JobList;
+        this.UngTuyenList = UngTuyenList;
         database = FirebaseDatabase.getInstance();
         reference = database.getReference();
     }
@@ -58,68 +58,18 @@ public class TrangThaiUngTuyenAdapter extends RecyclerView.Adapter<TrangThaiUngT
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull TrangThaiUngTuyenAdapter.ViewHolder holder, int position) {
-        Job Job = JobList.get(position);
-        holder.tvViTriCongViec.setText(Job.getViTri());
 
-        reference.child("UngTuyen").child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
+
+        ungTuyen = UngTuyenList.get(position);
+        database.getReference("ThongTin").child(ungTuyen.getIdTaiKhoanUngTuyen()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    ungTuyen = dataSnapshot.getValue(UngTuyen.class);
-
-                    if (ungTuyen != null) {
-
-                        database.getReference("ThongTin").child(ungTuyen.getIdTaiKhoanUngTuyen()).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                ThongTin thongTin = snapshot.getValue(ThongTin.class);
-                                if (thongTin != null) {
-                                    if (thongTin.getHinhAnh() != null) {
-                                        Glide.with(context).load(thongTin.getHinhAnh()).into(holder.imgLogo);
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-
-                        reference.child("Account").child(ungTuyen.getIdTaiKhoanUngTuyen()).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                Account account = snapshot.getValue(Account.class);
-                                if (account != null) {
-
-                                    holder.tvHoTen.setText(account.getFullName() +" đã ứng tuyển");
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                        if (Job.getId().equalsIgnoreCase(ungTuyen.getIdCongViec())) {
-                            holder.tvViTriCongViec.setText(ungTuyen.getThoiGian());
-                            if (ungTuyen.getTrangThai() == 1) {
-                                holder.tvTrangThaiUngTuyen.setText("Đã chấp nhận");
-                                holder.tvTrangThaiUngTuyen.setTextColor(Color.GREEN);
-                            } else if (ungTuyen.getTrangThai() == 2) {
-                                holder.tvTrangThaiUngTuyen.setText("Đã từ chỗi");
-                                holder.tvTrangThaiUngTuyen.setTextColor(Color.RED);
-                            } else {
-                                holder.tvTrangThaiUngTuyen.setText("Đang chờ ");
-                                holder.tvTrangThaiUngTuyen.setTextColor(Color.YELLOW);
-                            }
-                        }
-
+                ThongTin thongTin = snapshot.getValue(ThongTin.class);
+                if (thongTin != null) {
+                    if (thongTin.getHinhAnh() != null) {
+                        Glide.with(context).load(thongTin.getHinhAnh()).into(holder.imgLogo);
                     }
-
-
                 }
-
             }
 
             @Override
@@ -127,6 +77,32 @@ public class TrangThaiUngTuyenAdapter extends RecyclerView.Adapter<TrangThaiUngT
 
             }
         });
+        reference.child("Account").child(ungTuyen.getIdTaiKhoanUngTuyen()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Account account = snapshot.getValue(Account.class);
+                if (account != null) {
+
+                    holder.tvHoTen.setText(account.getFullName() +" đã ứng tuyển");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        holder.tvViTriCongViec.setText(ungTuyen.getThoiGian());
+        if (ungTuyen.getTrangThai() == 1) {
+            holder.tvTrangThaiUngTuyen.setText("Đã chấp nhận");
+            holder.tvTrangThaiUngTuyen.setTextColor(Color.GREEN);
+        } else if (ungTuyen.getTrangThai() == 2) {
+            holder.tvTrangThaiUngTuyen.setText("Đã từ chỗi");
+            holder.tvTrangThaiUngTuyen.setTextColor(Color.RED);
+        } else {
+            holder.tvTrangThaiUngTuyen.setText("Đang chờ ");
+            holder.tvTrangThaiUngTuyen.setTextColor(Color.YELLOW);
+        }
         holder.btnChapNhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,7 +136,7 @@ public class TrangThaiUngTuyenAdapter extends RecyclerView.Adapter<TrangThaiUngT
 
     @Override
     public int getItemCount() {
-        return JobList.size();
+        return UngTuyenList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
