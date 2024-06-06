@@ -122,7 +122,7 @@ public class JobDetailsActivity extends AppCompatActivity {
         Date date = new Date();
         String thoiGian = dateFormat.format(date);
         ungTuyen.setThoiGian(thoiGian);
-        database.getReference("UngTuyen").child(ungTuyen.getIdCongTy()).child(ungTuyen.getId()).setValue(ungTuyen).addOnCompleteListener(new OnCompleteListener<Void>() {
+        database.getReference("UngTuyen").child(ungTuyen.getIdCongTy()).child(ungTuyen.getId()).child(ungTuyen.getIdTaiKhoanUngTuyen()).setValue(ungTuyen).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {

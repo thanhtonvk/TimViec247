@@ -96,7 +96,7 @@ public class TuyenDungAdapter extends RecyclerView.Adapter<TuyenDungAdapter.View
         dialog.show();
         RecyclerView rvUngTuyen = dialog.findViewById(R.id.rvUngTuyen);
         rvUngTuyen.setAdapter(adapter);
-        database.getReference("UngTuyen").child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
+        database.getReference("UngTuyen").child(Common.account.getId()).child(job.getId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ungTuyensList.clear();
