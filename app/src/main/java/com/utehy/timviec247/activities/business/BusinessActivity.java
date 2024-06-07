@@ -12,6 +12,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -34,7 +35,6 @@ public class BusinessActivity extends AppCompatActivity {
         init();
         requestPermission();
         getCurrentLocation();
-
         BussinessViewPager adapter = new BussinessViewPager(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

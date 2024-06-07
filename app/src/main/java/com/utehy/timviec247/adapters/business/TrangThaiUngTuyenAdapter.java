@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,14 +51,13 @@ public class TrangThaiUngTuyenAdapter extends RecyclerView.Adapter<TrangThaiUngT
         return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_trangthai_ungtuyen, parent, false));
     }
 
-    public UngTuyen ungTuyen;
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull TrangThaiUngTuyenAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TrangThaiUngTuyenAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
 
-        ungTuyen = UngTuyenList.get(position);
+        UngTuyen ungTuyen = UngTuyenList.get(position);
         database.getReference("ThongTin").child(ungTuyen.getIdTaiKhoanUngTuyen()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -103,26 +103,28 @@ public class TrangThaiUngTuyenAdapter extends RecyclerView.Adapter<TrangThaiUngT
         holder.btnChapNhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ungTuyen != null) {
-                    ungTuyen.setTrangThai(1);
-                    reference.child("UngTuyen").child(Common.account.getId()).child(ungTuyen.getId()).setValue(ungTuyen);
-                }
+
+                UngTuyen ungTuyen = UngTuyenList.get(position);
+                ungTuyen.setTrangThai(1);
+                reference.child("UngTuyen").child(Common.account.getId()).child(ungTuyen.getId()).child(ungTuyen.getIdTaiKhoanUngTuyen()).setValue(ungTuyen);
+
             }
         });
 
         holder.btnTuChoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ungTuyen != null) {
-                    ungTuyen.setTrangThai(2);
-                    reference.child("UngTuyen").child(Common.account.getId()).child(ungTuyen.getId()).setValue(ungTuyen);
-                }
+
+                UngTuyen ungTuyen = UngTuyenList.get(position);
+                ungTuyen.setTrangThai(2);
+                reference.child("UngTuyen").child(Common.account.getId()).child(ungTuyen.getId()).child(ungTuyen.getIdTaiKhoanUngTuyen()).setValue(ungTuyen);
+
             }
         });
         holder.btnXemCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Common.ungTuyen = ungTuyen;
+                Common.ungTuyen = UngTuyenList.get(position);
                 Intent i = new Intent(context, XemCVActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 context.startActivity(i);
@@ -131,7 +133,8 @@ public class TrangThaiUngTuyenAdapter extends RecyclerView.Adapter<TrangThaiUngT
         holder.btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Common.ungTuyen = ungTuyen;
+                Toast.makeText(context, "pos " + position, Toast.LENGTH_SHORT).show();
+                Common.ungTuyen = UngTuyenList.get(position);
                 Intent i = new Intent(context, ChatActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 context.startActivity(i);

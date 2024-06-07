@@ -99,10 +99,13 @@ public class TuyenDungAdapter extends RecyclerView.Adapter<TuyenDungAdapter.View
         database.getReference("UngTuyen").child(Common.account.getId()).child(job.getId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.e("TAG Ung tuyen", "onDataChange: "+snapshot );
                 ungTuyensList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()
                 ) {
+
                     UngTuyen ungTuyen = dataSnapshot.getValue(UngTuyen.class);
+                    assert ungTuyen != null;
                     if (Objects.equals(ungTuyen.getIdCongViec(), job.getId())) {
                         ungTuyensList.add(ungTuyen);
                     }

@@ -1,11 +1,15 @@
 package com.utehy.timviec247.fragments;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +24,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.utehy.timviec247.R;
 import com.utehy.timviec247.activities.TimKiemActivity;
+import com.utehy.timviec247.activities.ViecLamGanActivity;
 import com.utehy.timviec247.activities.ViecLamPhuHopActivity;
 import com.utehy.timviec247.activities.ViecLamTotNhatActivity;
 import com.utehy.timviec247.adapters.CompanyAdapter;
@@ -37,6 +45,7 @@ import com.utehy.timviec247.utils.Common;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
@@ -71,6 +80,7 @@ public class HomeFragment extends Fragment {
         loadCongTy();
         loadViecLamTotNhat();
         loadViecLamPhuHop();
+        loadViecLamGan();
         timKiem();
         onClick();
     }
@@ -121,6 +131,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), ViecLamTotNhatActivity.class));
+            }
+        });
+        txtViecLamGan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ViecLamGanActivity.class));
             }
         });
     }
@@ -258,55 +274,75 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void loadViecLamGan() {
-        reference.child("Jobs").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                viectLamGanList.clear();
-                for (DataSnapshot key : snapshot.getChildren()
-                ) {
-                    String subChild = key.getKey();
-                    reference.child("Jobs").child(subChild).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            int count = 0;
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren()
-                            ) {
-                                Job job = dataSnapshot.getValue(Job.class);
-                                try {
-                                    assert job != null;
-                                    assert Common.location != null;
-                                    if (Common.doKhoangCach(job.getLat(), job.getLng(), Common.location.getLatitude(), Common.location.getLongitude()) <= 10000) {
-                                        viecLamTotNhatList.add(job);
-                                        count += 1;
-                                        if (count == 4) break;
+    private void loadViecLamGan() {
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(getActivity()));
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            Common.location = location;
+                            reference.child("Jobs").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                    viectLamGanList.clear();
+                                    for (DataSnapshot key : snapshot.getChildren()
+                                    ) {
+                                        String subChild = key.getKey();
+                                        reference.child("Jobs").child(subChild).addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                int count = 0;
+                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()
+                                                ) {
+                                                    Job job = dataSnapshot.getValue(Job.class);
+                                                    Log.e("Khoang cach", "onDataChange: " + Common.location);
+                                                    try {
+                                                        if (job != null && Common.location != null) {
+                                                            double khoangCach = Common.doKhoangCach(job.getLat(), job.getLng(), Common.location.getLatitude(), Common.location.getLongitude());
+                                                            Log.e("Khoang cach", "onDataChange: " + khoangCach);
+                                                            if (khoangCach <= 10000) {
+                                                                viectLamGanList.add(job);
+                                                                count += 1;
+                                                                if (count == 4) break;
+                                                            }
+                                                        }
+
+
+                                                    } catch (Exception e) {
+                                                        return;
+                                                    }
+
+
+                                                }
+                                                viecLamGanAdapter.notifyDataSetChanged();
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
 
-                                } catch (Exception e) {
-                                    return;
+
                                 }
 
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
 
-                            }
-                            viecLamTotNhatAdapter.notifyDataSetChanged();
+                                }
+                            });
                         }
+                    }
+                });
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
     private void loadViecLamTotNhat() {

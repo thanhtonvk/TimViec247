@@ -1,6 +1,8 @@
 package com.utehy.timviec247.activities.business;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,12 +31,12 @@ import java.util.Random;
 
 public class ChatActivity extends AppCompatActivity {
 
-    List<ChatContent> chatList;
+    List<ChatContent> chatList = new ArrayList<>();
     DatabaseReference reference;
     ChatAdapter chatAdapter;
     RecyclerView recyclerView;
 
-    Button btn_send,btnVideo;
+    Button btn_send, btnVideo;
     EditText edt_content;
     //Tem
 
@@ -43,11 +45,13 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         initView();
-        readMessage(Common.account.getId(), Common.ungTuyen.getIdTaiKhoanUngTuyen());
+
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+        readMessage(Common.account.getId(), Common.ungTuyen.getIdTaiKhoanUngTuyen());
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,8 +67,8 @@ public class ChatActivity extends AppCompatActivity {
         btnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Random random= new Random();
-                String room  = "//meeting#"+random.nextInt(1000);
+                Random random = new Random();
+                String room = "//meeting#" + random.nextInt(1000);
                 sendMessage(Common.account.getId(), Common.ungTuyen.getIdTaiKhoanUngTuyen(), room);
             }
         });
@@ -75,7 +79,8 @@ public class ChatActivity extends AppCompatActivity {
         edt_content = findViewById(R.id.edt_content);
         recyclerView = findViewById(R.id.lv_chat);
         btnVideo = findViewById(R.id.btnVideo);
-
+        chatAdapter = new ChatAdapter(ChatActivity.this, chatList);
+        recyclerView.setAdapter(chatAdapter);
     }
 
     private void sendMessage(String sender, String reciever, String message) {
@@ -88,23 +93,27 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void readMessage(String myID, String userID) {
-        chatList = new ArrayList<>();
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 chatList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Log.e("Noi dung", "onDataChange: " + dataSnapshot);
+                    Log.e("My id", "onDataChange: " + myID);
+                    Log.e("User id", "onDataChange: " + userID);
                     ChatContent chat = dataSnapshot.getValue(ChatContent.class);
                     assert chat != null;
                     if (chat.getReceiveUser().equals(myID) && chat.getSenderUser().equals(userID) || chat.getReceiveUser().equals(userID) && chat.getSenderUser().equals(myID)) {
+                        Log.e("Noi dung", "onDataChange: " + dataSnapshot);
                         chatList.add(chat);
-                        chatAdapter = new ChatAdapter(ChatActivity.this, chatList);
-                        recyclerView.setAdapter(chatAdapter);
                     }
                 }
+                chatAdapter.notifyDataSetChanged();
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

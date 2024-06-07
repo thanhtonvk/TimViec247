@@ -1,5 +1,6 @@
 package com.utehy.timviec247.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,8 +33,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import timber.log.Timber;
+
 public class LienHeActivity extends AppCompatActivity {
-    List<ChatContent> chatList;
+    List<ChatContent> chatList = new ArrayList<>();
     DatabaseReference reference;
     ChatAdapter chatAdapter;
     RecyclerView recyclerView;
@@ -47,18 +50,19 @@ public class LienHeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lien_he);
         initView();
-        readMessage(Common.account.getId(), Common.ungTuyen.getIdCongTy());
+
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
+        readMessage(Common.account.getId(), Common.company.getId());
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String message = edt_content.getText().toString();
-                if (!message.equals("")) {
-                    Log.e("ID Cong ty", "onClick: "+Common.ungTuyen.getIdCongTy() );
-                    sendMessage(Common.account.getId(), Common.ungTuyen.getIdCongTy(), message);
+                if (!message.isEmpty()) {
+                    Log.e("ID Cong ty", "onClick: " + Common.company.getId());
+                    sendMessage(Common.account.getId(), Common.company.getId(), message);
                 } else {
                     Toast.makeText(getApplicationContext(), "The feild is not empty", Toast.LENGTH_LONG).show();
                 }
@@ -68,10 +72,10 @@ public class LienHeActivity extends AppCompatActivity {
         btnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("ID Cong ty", "onClick: "+Common.ungTuyen.getIdCongTy() );
+                Log.e("ID Cong ty", "onClick: " + Common.company.getId());
                 Random random = new Random();
                 String room = "//meeting#" + random.nextInt(1000);
-                sendMessage(Common.account.getId(), Common.ungTuyen.getIdCongTy(), room);
+                sendMessage(Common.account.getId(), Common.company.getId(), room);
             }
         });
     }
@@ -81,7 +85,8 @@ public class LienHeActivity extends AppCompatActivity {
         edt_content = findViewById(R.id.edt_content);
         recyclerView = findViewById(R.id.lv_chat);
         btnVideo = findViewById(R.id.btnVideo);
-
+        chatAdapter = new ChatAdapter(LienHeActivity.this, chatList);
+        recyclerView.setAdapter(chatAdapter);
     }
 
     private void sendMessage(String sender, String reciever, String message) {
@@ -94,21 +99,22 @@ public class LienHeActivity extends AppCompatActivity {
     }
 
     private void readMessage(String myID, String userID) {
-        chatList = new ArrayList<>();
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 chatList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
                     ChatContent chat = dataSnapshot.getValue(ChatContent.class);
                     assert chat != null;
                     if (chat.getReceiveUser().equals(myID) && chat.getSenderUser().equals(userID) || chat.getReceiveUser().equals(userID) && chat.getSenderUser().equals(myID)) {
                         chatList.add(chat);
-                        chatAdapter = new ChatAdapter(LienHeActivity.this, chatList);
-                        recyclerView.setAdapter(chatAdapter);
+                        Timber.tag("Noi dung").e("onDataChange: " + dataSnapshot);
                     }
                 }
+                chatAdapter.notifyDataSetChanged();
 
             }
 
