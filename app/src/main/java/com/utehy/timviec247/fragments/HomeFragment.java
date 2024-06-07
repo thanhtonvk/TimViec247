@@ -57,7 +57,12 @@ public class HomeFragment extends Fragment {
     List<Job> vietLamPhuHopList = new ArrayList<>();
     JobAdapter viecLamPhuHopAdapter;
     EditText edtTimKiem;
-    TextView txtViecLamPhuHop,txtViecLamTotNhat;
+    TextView txtViecLamPhuHop, txtViecLamTotNhat, txtViecLamGan;
+
+
+    RecyclerView rvViecLamGan;
+    JobAdapter viecLamGanAdapter;
+    List<Job> viectLamGanList = new ArrayList<>();
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -92,11 +97,20 @@ public class HomeFragment extends Fragment {
         rvViecLamPhuHop = getActivity().findViewById(R.id.rvPhuHop);
         viecLamPhuHopAdapter = new JobAdapter(getContext(), vietLamPhuHopList, false);
         rvViecLamPhuHop.setAdapter(viecLamPhuHopAdapter);
+
+
+        rvViecLamGan = getActivity().findViewById(R.id.rvViecLamGan);
+        viecLamGanAdapter = new JobAdapter(getContext(), viectLamGanList, false);
+        rvViecLamGan.setAdapter(viecLamGanAdapter);
         edtTimKiem = getActivity().findViewById(R.id.edtTimKiem);
+
+
         txtViecLamPhuHop = getActivity().findViewById(R.id.txtViecLamPhuHop);
-        txtViecLamTotNhat= getActivity().findViewById(R.id.txtViecLamTotNhat);
+        txtViecLamTotNhat = getActivity().findViewById(R.id.txtViecLamTotNhat);
+        txtViecLamGan = getActivity().findViewById(R.id.txtViecLamGan);
     }
-    private void onClick(){
+
+    private void onClick() {
         txtViecLamPhuHop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -235,6 +249,57 @@ public class HomeFragment extends Fragment {
 
                     }
                 });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void loadViecLamGan() {
+        reference.child("Jobs").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                viectLamGanList.clear();
+                for (DataSnapshot key : snapshot.getChildren()
+                ) {
+                    String subChild = key.getKey();
+                    reference.child("Jobs").child(subChild).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            int count = 0;
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()
+                            ) {
+                                Job job = dataSnapshot.getValue(Job.class);
+                                try {
+                                    assert job != null;
+                                    assert Common.location != null;
+                                    if (Common.doKhoangCach(job.getLat(), job.getLng(), Common.location.getLatitude(), Common.location.getLongitude()) <= 10000) {
+                                        viecLamTotNhatList.add(job);
+                                        count += 1;
+                                        if (count == 4) break;
+                                    }
+
+                                } catch (Exception e) {
+                                    return;
+                                }
+
+
+                            }
+                            viecLamTotNhatAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+
+
             }
 
             @Override

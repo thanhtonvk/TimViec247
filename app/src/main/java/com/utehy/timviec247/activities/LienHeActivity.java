@@ -1,6 +1,7 @@
 package com.utehy.timviec247.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +30,7 @@ import com.utehy.timviec247.utils.Common;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class LienHeActivity extends AppCompatActivity {
     List<ChatContent> chatList;
@@ -36,8 +38,9 @@ public class LienHeActivity extends AppCompatActivity {
     ChatAdapter chatAdapter;
     RecyclerView recyclerView;
 
-    Button btn_send;
+    Button btn_send, btnVideo;
     EditText edt_content;
+
     //Tem
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +57,21 @@ public class LienHeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String message = edt_content.getText().toString();
                 if (!message.equals("")) {
+                    Log.e("ID Cong ty", "onClick: "+Common.ungTuyen.getIdCongTy() );
                     sendMessage(Common.account.getId(), Common.ungTuyen.getIdCongTy(), message);
                 } else {
                     Toast.makeText(getApplicationContext(), "The feild is not empty", Toast.LENGTH_LONG).show();
                 }
                 edt_content.setText("");
+            }
+        });
+        btnVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("ID Cong ty", "onClick: "+Common.ungTuyen.getIdCongTy() );
+                Random random = new Random();
+                String room = "//meeting#" + random.nextInt(1000);
+                sendMessage(Common.account.getId(), Common.ungTuyen.getIdCongTy(), room);
             }
         });
     }
@@ -67,6 +80,7 @@ public class LienHeActivity extends AppCompatActivity {
         btn_send = findViewById(R.id.btn_send);
         edt_content = findViewById(R.id.edt_content);
         recyclerView = findViewById(R.id.lv_chat);
+        btnVideo = findViewById(R.id.btnVideo);
 
     }
 
@@ -97,6 +111,7 @@ public class LienHeActivity extends AppCompatActivity {
                 }
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

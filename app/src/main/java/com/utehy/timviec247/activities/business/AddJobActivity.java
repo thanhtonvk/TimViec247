@@ -86,6 +86,11 @@ public class AddJobActivity extends AppCompatActivity {
                         job.setYeuCau(texts[11]);
                         job.setQuyenLoi(texts[12]);
                         job.setThoiGianLamViec(texts[13]);
+                        if (Common.location != null) {
+                            job.setLat(Common.location.getLatitude());
+                            job.setLng(Common.location.getLongitude());
+                        }
+
                         reference.child(Common.user.getUid()).child(job.getId()).setValue(job).addOnCompleteListener(task -> {
                             dialog.dismiss();
                             if (task.isSuccessful()) {

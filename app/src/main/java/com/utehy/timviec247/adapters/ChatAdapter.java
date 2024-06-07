@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,8 @@ import com.utehy.timviec247.utils.Common;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import org.jitsi.meet.sdk.JitsiMeetActivity;
+import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private static final int MSG_LEFT = 319;
     private static final int MSG_RIGHT = 276;
@@ -46,6 +48,21 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ChatContent content = list.get(position);
         holder.tv_message.setText(content.getMessage());
+        if(content.getMessage().contains("//meeting")){
+            holder.btnThamGia.setVisibility(View.VISIBLE);
+            holder.tv_message.setText("Tham gia video call ngay");
+            holder.btnThamGia.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String room = content.getMessage().split("#")[1];
+                    JitsiMeetConferenceOptions options
+                            = new JitsiMeetConferenceOptions.Builder()
+                            .setRoom(room)
+                            .build();
+                    JitsiMeetActivity.launch(context, options);
+                }
+            });
+        }
 
     }
 
@@ -65,10 +82,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_message;
+        Button btnThamGia;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_message = itemView.findViewById(R.id.show_message);
+            btnThamGia = itemView.findViewById(R.id.btnThamGia);
         }
     }
 }

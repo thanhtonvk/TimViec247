@@ -25,6 +25,7 @@ import com.utehy.timviec247.utils.Common;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -33,7 +34,7 @@ public class ChatActivity extends AppCompatActivity {
     ChatAdapter chatAdapter;
     RecyclerView recyclerView;
 
-    Button btn_send;
+    Button btn_send,btnVideo;
     EditText edt_content;
     //Tem
 
@@ -59,12 +60,21 @@ public class ChatActivity extends AppCompatActivity {
                 edt_content.setText("");
             }
         });
+        btnVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random random= new Random();
+                String room  = "//meeting#"+random.nextInt(1000);
+                sendMessage(Common.account.getId(), Common.ungTuyen.getIdTaiKhoanUngTuyen(), room);
+            }
+        });
     }
 
     private void initView() {
         btn_send = findViewById(R.id.btn_send);
         edt_content = findViewById(R.id.edt_content);
         recyclerView = findViewById(R.id.lv_chat);
+        btnVideo = findViewById(R.id.btnVideo);
 
     }
 

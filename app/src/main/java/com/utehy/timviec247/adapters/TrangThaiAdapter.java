@@ -85,6 +85,7 @@ public class TrangThaiAdapter extends RecyclerView.Adapter<TrangThaiAdapter.View
                     UngTuyen ut = dataSnapshot.getValue(UngTuyen.class);
                     if (ut != null) {
                         Common.ungTuyen = ut;
+                        Log.e("TAG Ung tuyen", "onDataChange: "+Common.ungTuyen.getTrangThai() );
                         if (String.valueOf(ut.getIdTaiKhoanUngTuyen()).equalsIgnoreCase(String.valueOf(Common.account.getId())) && String.valueOf(Job.getId()).equalsIgnoreCase(String.valueOf(ut.getIdCongViec()))) {
                             if (ut.getTrangThai() == 1) {
                                 holder.tvTrangThai.setText("Đã chấp nhận");
