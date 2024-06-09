@@ -8,6 +8,14 @@ public class UngTuyen {
     private String thoiGian;
     private int trangThai;
 
+    public UngTuyen(String id, String idCongViec, String idCongTy, String idTaiKhoanUngTuyen, String thoiGian, int trangThai) {
+        this.id = id;
+        this.idCongViec = idCongViec;
+        this.idCongTy = idCongTy;
+        this.idTaiKhoanUngTuyen = idTaiKhoanUngTuyen;
+        this.thoiGian = thoiGian;
+        this.trangThai = trangThai;
+    }
 
     @Override
     public String toString() {

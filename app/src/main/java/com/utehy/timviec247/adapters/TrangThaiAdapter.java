@@ -82,23 +82,32 @@ public class TrangThaiAdapter extends RecyclerView.Adapter<TrangThaiAdapter.View
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    UngTuyen ut = dataSnapshot.getValue(UngTuyen.class);
-                    if (ut != null) {
-                        Common.ungTuyen = ut;
-                        Log.e("TAG Ung tuyen", "onDataChange: "+Common.ungTuyen.getTrangThai() );
-                        if (String.valueOf(ut.getIdTaiKhoanUngTuyen()).equalsIgnoreCase(String.valueOf(Common.account.getId())) && String.valueOf(Job.getId()).equalsIgnoreCase(String.valueOf(ut.getIdCongViec()))) {
-                            if (ut.getTrangThai() == 1) {
-                                holder.tvTrangThai.setText("Đã chấp nhận");
-                                holder.tvTrangThai.setTextColor(Color.GREEN);
-                            } else if (ut.getTrangThai() == 2) {
-                                holder.tvTrangThai.setText("Đã từ chỗi");
-                                holder.tvTrangThai.setTextColor(Color.RED);
-                            } else {
-                                holder.tvTrangThai.setText("Đang chờ ");
-                                holder.tvTrangThai.setTextColor(Color.YELLOW);
+                    Log.e("TrangTahi", dataSnapshot.toString());
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        UngTuyen ut = dataSnapshot1.getValue(UngTuyen.class);
+                        Log.e("TrangTahi", ut.toString() );
+                        if (ut != null) {
+                            Common.ungTuyen = ut;
+                            Log.e("TrangTahi", String.valueOf(ut.getIdTaiKhoanUngTuyen()));
+                            Log.e("TrangTahi", Common.account.getId());
+                            Log.e("TrangTahi", Job.getId());
+                            Log.e("TrangTahi",String.valueOf(ut.getIdCongViec()));
+                            if (String.valueOf(ut.getIdTaiKhoanUngTuyen()).equalsIgnoreCase(String.valueOf(Common.account.getId())) && String.valueOf(Job.getId()).equalsIgnoreCase(String.valueOf(ut.getIdCongViec()))) {
+                                if (ut.getTrangThai() == 1) {
+                                    holder.tvTrangThai.setText("Đã chấp nhận");
+                                    holder.tvTrangThai.setTextColor(Color.GREEN);
+                                } else if (ut.getTrangThai() == 2) {
+                                    holder.tvTrangThai.setText("Đã từ chối ");
+                                    holder.tvTrangThai.setTextColor(Color.RED);
+                                } else {
+                                    holder.tvTrangThai.setText("Đang chờ ");
+                                    holder.tvTrangThai.setTextColor(Color.YELLOW);
+                                }
                             }
                         }
                     }
+
+
                 }
 
 
