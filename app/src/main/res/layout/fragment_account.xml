@@ -136,16 +136,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvSuaCV"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="right"
-                    android:text="Sửa"
-                    android:textColor="@color/primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -153,62 +144,107 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#BBDEFB"
-                    app:cardCornerRadius="5dp">
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="#BBDEFB"
+                        app:cardCornerRadius="5dp">
+
+                        <TextView
+                            android:id="@+id/tvCV1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:textColor="@color/primary"
+                            android:textStyle="bold" />
+                    </androidx.cardview.widget.CardView>
 
                     <TextView
-                        android:id="@+id/tvCV1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-
+                        android:id="@+id/tvSuaCV1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="right"
+                        android:text="Sửa"
                         android:textColor="@color/primary"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
-                </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#BBDEFB"
-                    app:cardCornerRadius="5dp">
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="#BBDEFB"
+                        app:cardCornerRadius="5dp">
+
+                        <TextView
+                            android:id="@+id/tvCV2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:textColor="@color/primary"
+                            android:textStyle="bold" />
+                    </androidx.cardview.widget.CardView>
 
                     <TextView
-                        android:id="@+id/tvCV2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-
+                        android:id="@+id/tvSuaCV2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="right"
+                        android:text="Sửa"
                         android:textColor="@color/primary"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
-                </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#BBDEFB"
-                    app:cardCornerRadius="5dp">
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="#BBDEFB"
+                        app:cardCornerRadius="5dp">
+
+                        <TextView
+                            android:id="@+id/tvCV3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:textColor="@color/primary"
+                            android:textStyle="bold" />
+                    </androidx.cardview.widget.CardView>
 
                     <TextView
-                        android:id="@+id/tvCV3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-
+                        android:id="@+id/tvSuaCV3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="right"
+                        android:text="Sửa"
                         android:textColor="@color/primary"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
-                </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -233,16 +269,6 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvSuaDiaDiem"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="right"
-                    android:text="Sửa"
-                    android:textColor="@color/primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -250,61 +276,107 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#BBDEFB"
-                    app:cardCornerRadius="5dp">
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="#BBDEFB"
+                        app:cardCornerRadius="5dp">
+
+                        <TextView
+                            android:id="@+id/tvDiaDiem1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:textColor="@color/primary"
+                            android:textStyle="bold" />
+                    </androidx.cardview.widget.CardView>
 
                     <TextView
-                        android:id="@+id/tvDiadiem1"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvSuaDiaDiem1"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-
+                        android:layout_weight="2"
+                        android:gravity="right"
+                        android:text="Sửa"
                         android:textColor="@color/primary"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
-                </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#BBDEFB"
-                    app:cardCornerRadius="5dp">
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="#BBDEFB"
+                        app:cardCornerRadius="5dp">
+
+                        <TextView
+                            android:id="@+id/tvDiaDiem2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:textColor="@color/primary"
+                            android:textStyle="bold" />
+                    </androidx.cardview.widget.CardView>
 
                     <TextView
-                        android:id="@+id/tvDiadiem2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-
+                        android:id="@+id/tvSuaDiaDiem2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="right"
+                        android:text="Sửa"
                         android:textColor="@color/primary"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
-                </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#BBDEFB"
-                    app:cardCornerRadius="5dp">
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="#BBDEFB"
+                        app:cardCornerRadius="5dp">
+
+                        <TextView
+                            android:id="@+id/tvDiaDiem3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:textColor="@color/primary"
+                            android:textStyle="bold" />
+                    </androidx.cardview.widget.CardView>
 
                     <TextView
-                        android:id="@+id/tvDiadiem3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
+                        android:id="@+id/tvSuaDiaDiem3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="right"
+                        android:text="Sửa"
                         android:textColor="@color/primary"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
-                </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
             </LinearLayout>
 

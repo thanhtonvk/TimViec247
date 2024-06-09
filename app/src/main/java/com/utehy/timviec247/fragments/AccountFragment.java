@@ -31,6 +31,8 @@ import com.utehy.timviec247.activities.ViecLamDaLuuActivity;
 import com.utehy.timviec247.activities.ViecLamDaUngTuyenActivity;
 import com.utehy.timviec247.utils.Common;
 
+import java.util.Objects;
+
 public class AccountFragment extends Fragment {
 
     public AccountFragment() {
@@ -52,7 +54,7 @@ public class AccountFragment extends Fragment {
     }
 
     ImageView imgAvatar;
-    TextView tvHoTen, tvCapNhat, tvSuaKN, tvKN, tvSuaCV, tvCV1, tvCV2, tvCV3, tvSuaDiaDiem, tvDiadiem1, tvDiadiem2, tvDiadiem3, tvSoLuongUngTuyen, tvSoLuongLuu;
+    TextView tvHoTen, tvCapNhat, tvSuaKN, tvKN, tvSuaCV1, tvSuaCV2, tvSuaCV3, tvCV1, tvCV2, tvCV3, tvSuaDiaDiem1, tvSuaDiaDiem2, tvSuaDiaDiem3, tvDiadiem1, tvDiadiem2, tvDiadiem3;
     Button btnDangXuat;
     FirebaseDatabase database;
     CardView cvUngTuyen, cvLuu;
@@ -77,16 +79,40 @@ public class AccountFragment extends Fragment {
                 updateKinhNghiem();
             }
         });
-        tvSuaCV.setOnClickListener(new View.OnClickListener() {
+        tvSuaCV1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateCongViec();
+                updateCongViec(1);
             }
         });
-        tvSuaDiaDiem.setOnClickListener(new View.OnClickListener() {
+        tvSuaCV2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateDiaDiem();
+                updateCongViec(2);
+            }
+        });
+        tvSuaCV3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateCongViec(3);
+            }
+        });
+        tvSuaDiaDiem1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateDiaDiem(1);
+            }
+        });
+        tvSuaDiaDiem2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateDiaDiem(2);
+            }
+        });
+        tvSuaDiaDiem3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateDiaDiem(3);
             }
         });
         btnDangXuat.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +135,7 @@ public class AccountFragment extends Fragment {
         });
     }
 
-    private void updateDiaDiem() {
+    private void updateDiaDiem(int viTri) {
         EditText editText = new EditText(getContext());
         AlertDialog dialog = new AlertDialog.Builder(getContext())
                 .setTitle("Nhập nơi làm việc")
@@ -117,7 +143,7 @@ public class AccountFragment extends Fragment {
                 .setView(editText)
                 .setPositiveButton("OK", (dialogInterface, i) -> {
                     String congViec = editText.getText().toString();
-                    database.getReference("DiaDiemMongMuon").child(Common.account.getId()).setValue(congViec);
+                    database.getReference("DiaDiemMongMuon").child(Common.account.getId()).child(viTri + "").setValue(congViec);
                 })
                 .setNegativeButton("Cancel", null)
                 .create();
@@ -140,7 +166,7 @@ public class AccountFragment extends Fragment {
         dialog.show();
     }
 
-    private void updateCongViec() {
+    private void updateCongViec(int viTri) {
         EditText editText = new EditText(getContext());
         AlertDialog dialog = new AlertDialog.Builder(getContext())
                 .setTitle("Nhập công việc mong muốn")
@@ -148,7 +174,7 @@ public class AccountFragment extends Fragment {
                 .setView(editText)
                 .setPositiveButton("OK", (dialogInterface, i) -> {
                     String congViec = editText.getText().toString();
-                    database.getReference("CongViecMongMuon").child(Common.account.getId()).setValue(congViec);
+                    database.getReference("CongViecMongMuon").child(Common.account.getId()).child(viTri + "").setValue(congViec);
                 })
                 .setNegativeButton("Cancel", null)
                 .create();
@@ -163,19 +189,20 @@ public class AccountFragment extends Fragment {
         database.getReference("DiaDiemMongMuon").child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String diaDiem = snapshot.getValue(String.class);
-                if (diaDiem != null) {
-                    String[] arr = diaDiem.split(",");
-                    if (arr.length > 0) {
-                        tvDiadiem1.setText(arr[0]);
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()
+                ) {
+                    String key = dataSnapshot.getKey();
+                    String diaDiem = dataSnapshot.getValue(String.class);
+                    if (Objects.equals(key, "1")) {
+                        tvDiadiem1.setText(diaDiem);
+                    } else if (Objects.equals(key, "2")) {
+                        tvDiadiem2.setText(diaDiem);
+                    } else if (Objects.equals(key, "3")) {
+                        tvDiadiem3.setText(diaDiem);
                     }
-                    if (arr.length > 1) {
-                        tvDiadiem2.setText(arr[1]);
-                    }
-                    if (arr.length > 2) {
-                        tvDiadiem3.setText(arr[2]);
-                    }
+
                 }
+
             }
 
             @Override
@@ -186,18 +213,19 @@ public class AccountFragment extends Fragment {
         database.getReference("CongViecMongMuon").child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String congViec = snapshot.getValue(String.class);
-                if (congViec != null) {
-                    String[] arr = congViec.split(",");
-                    if (arr.length > 0) {
-                        tvCV1.setText(arr[0]);
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()
+                ) {
+                    String key = dataSnapshot.getKey();
+                    String congViec = dataSnapshot.getValue(String.class);
+                    if (Objects.equals(key, "1")) {
+                        tvCV1.setText(congViec);
+                    } else if (Objects.equals(key, "2")) {
+                        tvCV2.setText(congViec);
+                    } else if (Objects.equals(key, "3")) {
+                        tvCV3.setText(congViec);
                     }
-                    if (arr.length > 1) {
-                        tvCV2.setText(arr[1]);
-                    }
-                    if (arr.length > 2) {
-                        tvCV3.setText(arr[2]);
-                    }
+
                 }
             }
 
@@ -230,14 +258,18 @@ public class AccountFragment extends Fragment {
         tvCapNhat = getView().findViewById(R.id.tvCapNhat);
         tvSuaKN = getView().findViewById(R.id.tvSuaKN);
         tvKN = getView().findViewById(R.id.tvKN);
-        tvSuaCV = getView().findViewById(R.id.tvSuaCV);
+        tvSuaCV1 = getView().findViewById(R.id.tvSuaCV1);
+        tvSuaCV2 = getView().findViewById(R.id.tvSuaCV2);
+        tvSuaCV3 = getView().findViewById(R.id.tvSuaCV3);
         tvCV1 = getView().findViewById(R.id.tvCV1);
         tvCV2 = getView().findViewById(R.id.tvCV2);
         tvCV3 = getView().findViewById(R.id.tvCV3);
-        tvSuaDiaDiem = getView().findViewById(R.id.tvSuaDiaDiem);
-        tvDiadiem1 = getView().findViewById(R.id.tvDiadiem1);
-        tvDiadiem2 = getView().findViewById(R.id.tvDiadiem2);
-        tvDiadiem3 = getView().findViewById(R.id.tvDiadiem3);
+        tvSuaDiaDiem1 = getView().findViewById(R.id.tvSuaDiaDiem1);
+        tvSuaDiaDiem2 = getView().findViewById(R.id.tvSuaDiaDiem2);
+        tvSuaDiaDiem3 = getView().findViewById(R.id.tvSuaDiaDiem3);
+        tvDiadiem1 = getView().findViewById(R.id.tvDiaDiem1);
+        tvDiadiem2 = getView().findViewById(R.id.tvDiaDiem2);
+        tvDiadiem3 = getView().findViewById(R.id.tvDiaDiem3);
         btnDangXuat = getView().findViewById(R.id.btnDangXuat);
         database = FirebaseDatabase.getInstance();
         cvLuu = getView().findViewById(R.id.cvViecDaLuu);

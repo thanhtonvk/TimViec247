@@ -1,6 +1,7 @@
 package com.utehy.timviec247.fragments;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,7 @@ public class CVFragment extends Fragment {
     EditText edtLink;
     WebView wvCV;
     FirebaseDatabase database;
+    String linkCV = "";
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -59,16 +61,39 @@ public class CVFragment extends Fragment {
 
     private void init() {
         btnOK = getActivity().findViewById(R.id.btnOK);
-        edtLink = getActivity().findViewById(R.id.edtLink);
         wvCV = getActivity().findViewById(R.id.wvCV);
         database = FirebaseDatabase.getInstance();
+    }
+
+    private void updateCongViec() {
+        EditText editText = new EditText(getContext());
+        editText.setText(linkCV);
+        AlertDialog dialog = new AlertDialog.Builder(getContext())
+                .setTitle("Nhập link CV")
+                .setView(editText)
+                .setPositiveButton("OK", (dialogInterface, i) -> {
+                    String link = editText.getText().toString();
+                    database.getReference("CV").child(Common.account.getId()).setValue(link).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getActivity(), "Thành công ", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), "Thất bại ", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                })
+                .setNegativeButton("Cancel", null)
+                .create();
+        dialog.show();
     }
 
     private void onClick() {
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                update();
+                updateCongViec();
             }
         });
     }
@@ -82,10 +107,10 @@ public class CVFragment extends Fragment {
                 if (link != null) {
                     wvCV.getSettings().setJavaScriptEnabled(true);
                     wvCV.getSettings().setBuiltInZoomControls(true);
-
                     // Load a web page
                     wvCV.loadUrl(link);
-                    edtLink.setText(link);
+                    linkCV = link;
+
                 }
             }
 
@@ -94,23 +119,5 @@ public class CVFragment extends Fragment {
 
             }
         });
-    }
-
-    private void update() {
-        boolean isValid = EditextValidator.validateAllEditTexts(edtLink);
-        if (isValid) {
-            String[] texts = EditextValidator.getTextFromEditTexts(edtLink);
-            database.getReference("CV").child(Common.account.getId()).setValue(texts[0]).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(getActivity(), "Thành công ", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getActivity(), "Thất bại ", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-
     }
 }

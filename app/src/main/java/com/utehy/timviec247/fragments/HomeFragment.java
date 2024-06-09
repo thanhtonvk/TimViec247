@@ -158,8 +158,8 @@ public class HomeFragment extends Fragment {
     }
 
     int namKN = 0;
-    String[] congViecMonMuons = new String[0];
-    String[] diaDiemMongMuons = new String[0];
+    List<String> congViecMonMuons = new ArrayList<>();
+    List<String> diaDiemMongMuons = new ArrayList<>();
 
     private void loadViecLamPhuHop() {
         //kiem tra nam kinh nghiem
@@ -175,18 +175,21 @@ public class HomeFragment extends Fragment {
                 database.getReference("CongViecMongMuon").child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String data = snapshot.getValue(String.class);
-                        if (data != null) {
-                            congViecMonMuons = data.split(",");
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()
+                        ) {
+                            String data = dataSnapshot.getValue(String.class);
+                            congViecMonMuons.add(data);
                         }
+
                         //kiem tra dia diem lam viec mong muon
                         database.getReference("DiaDiemMongMuon").child(Common.account.getId()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                String data = snapshot.getValue(String.class);
-                                if (data != null) {
-                                    diaDiemMongMuons = data.split(",");
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                    String data = dataSnapshot.getValue(String.class);
+                                    diaDiemMongMuons.add(data);
                                 }
+
                                 //lay ve danh sach congg viec
                                 reference.child("Jobs").addValueEventListener(new ValueEventListener() {
                                     @Override
